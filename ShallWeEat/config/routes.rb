@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
 	get 'account/edit'
 	post 'account/edit_profile'
+	post 'account/edit_password'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
