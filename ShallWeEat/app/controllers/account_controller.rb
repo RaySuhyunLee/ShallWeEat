@@ -7,11 +7,12 @@ class AccountController < ApplicationController
 		@user = Account.new(name: 'test')
 	end
 	def edit_password
-		#@user = Account.find_by(name: '')
-		@user = Account.new(name: 'test')
+		@user = Account.find_by(name: 'test')
+		#Account.destroy_all
+		#@user = Account.new(name: 'test', pass: 'test')
 		
-		if param[:pass_old] == user.pass
-			@user.pass = param[:pass_new]
+		if params[:pass_old] == @user.pass
+			@user.pass = params[:pass_new]
 			@user.save
 			status = 0
 		else
@@ -21,5 +22,9 @@ class AccountController < ApplicationController
 		respond_to do |format|
 			format.json {render :json => {:st => status}}
 		end
+	end
+
+	def show
+		render plain: Account.find_by(name: 'test').inspect
 	end
 end

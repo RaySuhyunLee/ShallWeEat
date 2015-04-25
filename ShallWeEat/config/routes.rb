@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root 'account#login'
 
 	get 'account/edit'
+	get 'account/show'
 	post 'account/edit_profile'
 	post 'account/edit_password'
 
