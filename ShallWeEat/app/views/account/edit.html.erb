@@ -5,24 +5,24 @@
 		<h2>Change profile</h2>
 		<p>
 			Email<br>
-			<input type="text" value="<%= @user.email %>">
+			<input type="text" id="input_email" value="<%= @user.email %>">
 		</p>
 		<p>
 			Gender<br>
-			<input type="radio"
+			<input type="radio" name="gender" value=0
 			<% if @user.gender == 0 %>
 				checked
 			<% end %> >male
-			<input type="radio"
+			<input type="radio" name="gender" value=1
 			<% if @user.gender == 1 %>
 				checked
 			<% end %> >female
 		</p>
 		<p>
 			Birthday<br>
-			<input type="text" value="<%= @user.birth %>">
+			<input type="text" id="input_birth" value="<%= @user.birth %>">
 		</p>
-		<button>Update profile</button>
+		<button id="button_edit_profile">Update profile</button>
 	</div>
 	<div>
 		<h2>Change password</h2>
@@ -38,7 +38,7 @@
 			Confirm new password<br>
 			<input type="password" id="input_pass_confirm"/>
 		</p>
-		<button id="button_change_password" >Update password</button>
+		<button id="button_edit_password" >Update password</button>
 	</div>
 
 </div>

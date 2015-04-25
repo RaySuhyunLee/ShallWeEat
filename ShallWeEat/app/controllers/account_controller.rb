@@ -7,12 +7,17 @@ class AccountController < ApplicationController
 		
 		if @user.nil?
 			# error
+			status = -1
 		else
 			@user.email = params[:email]
 			@user.gender = params[:gender]
 			@user.birth = params[:birth]
 			@user.save
 			status = 0
+		end
+
+		respond_to do |format|
+			format.json {render :json => {:st => status}}
 		end
 	end
 	def edit_password
@@ -25,7 +30,7 @@ class AccountController < ApplicationController
 			@user.save
 			status = 0
 		else
-			status = 1
+			status = -1
 		end
 
 		respond_to do |format|
