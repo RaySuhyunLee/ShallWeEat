@@ -1,0 +1,30 @@
+<h1>Sign up!</h1>
+<div class="row">
+	<%= form_for(@account) do |f| %>
+		<p>
+			<%= f.label :nickname %>
+			<%= f.text_field :name, class: 'form-control' %>
+		</p>
+		<p>
+			<%= f.label :password %>
+			<%= f.text_field :pass, class: 'form-control' %>
+		</p>
+		<p>
+			<%= f.label :email_address %>
+			<%= f.email_field :email, class: 'form-control' %>
+		</p>
+		<p>
+			<%= f.label :gender %>
+			male?
+			<%= f.radio_button :gender, 0,  class: 'form-control' %>
+			female?
+			<%= f.radio_button :gender, 1,  class: 'form-control' %>
+		</p>
+		<p>
+			<%= f.label :birth %>
+			<%= f.date_select :birth %>
+		</p>
+			<%= f.submit "Create my account!", class: "btn btn-primart" %>
+		
+		<% end %>
+</div>
