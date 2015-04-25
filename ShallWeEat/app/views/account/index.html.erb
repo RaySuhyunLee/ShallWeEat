@@ -1,0 +1,16 @@
+<% if logged_in? %>
+  <p>Hi, <%= current_account.name %>!</p>
+    <%= link_to signup_path  %>
+
+  
+<% else %>
+  <label for="name_input">Name / Email</label><br>
+  <input id="name_input"><br><br>
+  
+  <label for="pass_input">Password</label><br>
+  <input id="pass_input" type="password"><br><br>
+  
+  <button id="login_btn">Login</button>
+  <button id="signup_btn">Sign Up</button>
+  
+<% end %>

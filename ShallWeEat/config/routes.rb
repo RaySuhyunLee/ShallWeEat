@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+
+  root 'account#index'
+  #root 'accounts#new'
+  post 'login' => 'account#login'
+  post 'signup' => 'account#signup'
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
