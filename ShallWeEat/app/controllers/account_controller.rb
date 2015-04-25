@@ -3,8 +3,17 @@ class AccountController < ApplicationController
 		@user = Account.new(name: 'test', pass: 'test', email: 'test')
 	end
 	def edit_profile
-		#@user = Account.find_by(name: '')
-		@user = Account.new(name: 'test')
+		@user = Account.find_by(name: 'test')
+		
+		if @user.nil?
+			# error
+		else
+			@user.email = params[:email]
+			@user.gender = params[:gender]
+			@user.birth = params[:birth]
+			@user.save
+			status = 0
+		end
 	end
 	def edit_password
 		@user = Account.find_by(name: 'test')
