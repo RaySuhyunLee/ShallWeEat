@@ -1,6 +1,6 @@
 class AccountController < ApplicationController
 	def edit
-		@user = Account.new(name: 'test', pass: 'test', email: 'test')
+		@user = Account.new(name: 'test', pass: 'test', email: 'test', gender: 0, birth: '19940513')
 	end
 	def edit_profile
 		@user = Account.find_by(name: 'test')

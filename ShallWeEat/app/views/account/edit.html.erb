@@ -5,16 +5,22 @@
 		<h2>Change profile</h2>
 		<p>
 			Email<br>
-			<input type="text">
+			<input type="text" value="<%= @user.email %>">
 		</p>
 		<p>
 			Gender<br>
-			<input type="radio">male
-			<input type="radio">female
+			<input type="radio"
+			<% if @user.gender == 0 %>
+				checked
+			<% end %> >male
+			<input type="radio"
+			<% if @user.gender == 1 %>
+				checked
+			<% end %> >female
 		</p>
 		<p>
 			Birthday<br>
-			Not yet implemented
+			<input type="text" value="<%= @user.birth %>">
 		</p>
 		<button>Update profile</button>
 	</div>
