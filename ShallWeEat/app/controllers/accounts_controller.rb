@@ -1,7 +1,21 @@
-class AccountController < ApplicationController
+class AccountsController < ApplicationController
+  def signup
+		@account = Account.new
+  end
+
+	def create
+		@account = Account.new(account_params)
+		if @account.save
+			redirect_to @account
+		else
+			redirect_to :back
+		end
+	end
+
 	def edit
 		@user = Account.new(name: 'test', pass: 'test', email: 'test', gender: 0, birth: '19940513')
 	end
+
 	def edit_profile
 		@user = Account.find_by(name: 'test')
 		
@@ -39,6 +53,14 @@ class AccountController < ApplicationController
 	end
 
 	def show
-		render plain: Account.find_by(name: 'test').inspect
+		@account = Account.find(params[:id])
+
 	end
+
+	private
+		def account_params
+			params.require(:account).permit(:name,:pass, :gender, :birth, :email)
+		end
+
+
 end
