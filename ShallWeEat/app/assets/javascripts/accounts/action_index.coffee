@@ -19,11 +19,7 @@ $(".accounts.index").ready ->
 						location.reload()
 					
 		$("#signup_btn").unbind("click").click ->
-			$.ajax
-				type: "post"
-				url: "/signup"
-	 
-				location.reload()
+			window.location.replace('/accounts/signup')
 
 	$ -> bind_ajax()
 	$(window).bind "page:change", bind_ajax

@@ -9,7 +9,7 @@ $(".accounts.edit").ready ->
 
 	sendEditPasswordRequest = () ->
 		$.ajax
-			url: '/account/edit_password'
+			url: '/accounts/edit_password'
 			type: 'post'
 			data:
 				pass_old: $('#input_pass_old').val()
@@ -24,7 +24,7 @@ $(".accounts.edit").ready ->
 
 	sendEditProfileRequest = () ->
 		$.ajax
-			url: '/account/edit_profile'
+			url: '/accounts/edit_profile'
 			type: 'post'
 			data:
 				email: $('#input_email').val()

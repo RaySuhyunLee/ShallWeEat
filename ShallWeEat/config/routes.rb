@@ -5,9 +5,9 @@ Rails.application.routes.draw do
   post 'login' => 'accounts#login'
   post 'signup' => 'accounts#signup'
 
-
+	get 'accounts/index'
   get 'accounts/signup'
-	get 'accounts/edit'
+	#get 'accounts/edit'
 	post 'accounts/edit_profile'
 	post 'accounts/edit_password'
 
