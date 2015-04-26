@@ -7,7 +7,8 @@ Rails.application.routes.draw do
 
 	get 'accounts/index'
   get 'accounts/signup'
-	#get 'accounts/edit'
+	get 'accounts/edit'
+	get 'accounts/logout'
 	post 'accounts/edit_profile'
 	post 'accounts/edit_password'
 

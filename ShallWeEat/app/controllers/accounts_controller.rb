@@ -7,7 +7,9 @@ class AccountsController < ApplicationController
     @account = Account.find_by(name: params[:name])
 
     if @account && @account.pass == params[:pass]#&& @account.authenticate(params[:pass])
-      log_in @account
+			# store session key
+			session[:name] = @account.name
+      #log_in @account
       render :json => { user_name: params[:name]}
     else
       render :json => { error_code: -4 }
@@ -30,12 +32,17 @@ class AccountsController < ApplicationController
 	end
 
 	def edit
-		@user = Account.find(params[:id])
+		name = session[:name]
+		if name.nil?
+			redirect_to :accounts_index
+		else
+			@user = Account.find_by(name: name)
+		end
 	end
 
 	def edit_profile
-		# FIXME use session key
-		@user = Account.find_by(name: 'test')
+		name = session[:name]
+		@user = Account.find_by(name: name)
 		
 		if @user.nil?
 			# error
@@ -52,8 +59,10 @@ class AccountsController < ApplicationController
 			format.json {render :json => {:st => status}}
 		end
 	end
+
 	def edit_password
-		@user = Account.find_by(name: 'test')
+		name = session[:name]
+		@user = Account.find_by(name: name)
 		#Account.destroy_all
 		#@user = Account.new(name: 'test', pass: 'test')
 		
@@ -71,8 +80,17 @@ class AccountsController < ApplicationController
 	end
 
 	def show
-		@account = Account.find(params[:id])
+		name = session[:name]
+		if name.nil?
+			redirect_to :accounts_index
+		else
+			@account = Account.find_by(name: name)
+		end
+	end
 
+	def logout
+		session[:name] = nil
+		redirect_to :accounts_index
 	end
 
   private
