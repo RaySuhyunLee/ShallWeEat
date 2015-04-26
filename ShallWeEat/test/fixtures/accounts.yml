@@ -1,16 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: UserExample
-  #pass: PassExample
-  password_digest: <%= BCrypt::Password.create("PassExample") %>
-  email: 
+  name: 
+  pass: 
+  email:
   gender: 
   birth: 
 
 two:
-  name: MyString
-  pass: MyString
+  name: 
+  pass: 
   email: 
   gender: 
   birth: 
