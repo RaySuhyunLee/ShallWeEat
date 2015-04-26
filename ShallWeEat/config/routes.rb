@@ -1,17 +1,17 @@
 Rails.application.routes.draw do
   get 'accounts/signup'
+	get 'accounts/edit'
+	post 'accounts/edit_profile'
+	post 'accounts/edit_password'
+
 	resources :accounts
 # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'account#login'
+  root 'accounts#login'
 
-	get 'account/edit'
-	get 'account/show'
-	post 'account/edit_profile'
-	post 'account/edit_password'
-
+	
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
