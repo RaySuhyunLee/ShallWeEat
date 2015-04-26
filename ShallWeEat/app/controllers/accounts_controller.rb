@@ -3,6 +3,16 @@ class AccountsController < ApplicationController
   def index
   end
 
+  def login
+    @account = Account.find_by(name: params[:name])
+
+    if @account && @account.pass == params[:pass]#&& @account.authenticate(params[:pass])
+      log_in @account
+      render :json => { user_name: params[:name]}
+    else
+      render :json => { error_code: -4 }
+    end
+  end
 
   def signup
 		@account = Account.new
@@ -10,10 +20,12 @@ class AccountsController < ApplicationController
   
 	def create
 		@account = Account.new(account_params)
+
 		if @account.save
-			redirect_to @account
+			render :json => { :st => 0 }
 		else
-			render 'signup'
+			#render :json => { :st => -1}
+			render :signup 
 		end
 	end
 
@@ -62,22 +74,6 @@ class AccountsController < ApplicationController
 		@account = Account.find(params[:id])
 
 	end
-
-
-  
-  def login
-    @account = Account.find_by(name: params[:name])
-
-    if @account && @account.pass == params[:pass]#&& @account.authenticate(params[:pass])
-      @account.pass = params[:pass]
-      @account.save
-      log_in @account
-      render :json => { user_name: params[:name]}
-    else
-      render :json => { error_code: -4 }
-    end
-  end
-
 
   private
 	def account_params
