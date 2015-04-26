@@ -10,7 +10,7 @@ $(".accounts.edit").ready ->
 	sendEditPasswordRequest = () ->
 		# check if pass_new and pass_confirm are same
 		if $('#input_pass_new').val() != $('#input_pass_confirm').val()
-			alert("New password and password confirmation doesn't match")
+			alert("New password doesn't match it's confirmation")
 		else
 			$.ajax
 				url: '/accounts/edit_password'
@@ -37,8 +37,8 @@ $(".accounts.edit").ready ->
 				birth: $('#input_birth').val()
 			success: (data) ->
 				if data.st == 0
-					alert('success!')
+					alert('Successfully changed profile!')
 				else
-					alert('fail')
+					alert("Actually I don't know why but it failed.")
 			error: ->
 			dataType: 'json'
