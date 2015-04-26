@@ -1,14 +1,13 @@
 class AccountsController < ApplicationController
-  def signup
-		@account = Account.new
-  end
-
+	def signup
+	  @account = Account.new
+	end
 	def create
 		@account = Account.new(account_params)
 		if @account.save
 			redirect_to @account
 		else
-			redirect_to :back
+			render 'signup'
 		end
 	end
 
