@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
 
-  root 'account#index'
+  root 'accounts#index'
   #root 'accounts#new'
-  post 'login' => 'account#login'
-  post 'signup' => 'account#signup'
+  post 'login' => 'accounts#login'
+  post 'signup' => 'accounts#signup'
 
 
-  # The priority is based upon order of creation: first created -> highest priority.
+  get 'accounts/signup'
+	resources :accounts
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"

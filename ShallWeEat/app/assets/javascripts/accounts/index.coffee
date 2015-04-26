@@ -8,8 +8,8 @@ bind_ajax = () ->
       type: "post"
       url: "/login"
       data: {
-        username: $("#name_input").val(),
-        password: $("#password_input").val()
+        name: $("#name_input").val(),
+        pass: $("#pass_input").val()
       }
       dataType: "json"
       success: (data, status) ->'' +
