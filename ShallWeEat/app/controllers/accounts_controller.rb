@@ -18,10 +18,11 @@ class AccountsController < ApplicationController
 	end
 
 	def edit
-		@user = Account.new(name: 'test', pass: 'test', email: 'test', gender: 0, birth: '19940513')
+		@user = Account.find(params[:id])
 	end
 
 	def edit_profile
+		# FIXME use session key
 		@user = Account.find_by(name: 'test')
 		
 		if @user.nil?

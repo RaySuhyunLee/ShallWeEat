@@ -5,9 +5,9 @@ Rails.application.routes.draw do
   post 'login' => 'accounts#login'
   post 'signup' => 'accounts#signup'
 
-
+	get 'accounts/index'
   get 'accounts/signup'
-	get 'accounts/edit'
+	#get 'accounts/edit'
 	post 'accounts/edit_profile'
 	post 'accounts/edit_password'
 
@@ -15,8 +15,6 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'accounts#login'
-
 	
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
