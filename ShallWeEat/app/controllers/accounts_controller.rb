@@ -22,12 +22,11 @@ class AccountsController < ApplicationController
   
 	def create
 		@account = Account.new(account_params)
-
+		
 		if @account.save
 			render :json => { :st => 0 }
 		else
-			#render :json => { :st => -1}
-			render :signup 
+			render :json => { :st => -1, :msg => @account.errors.full_messages[0] }
 		end
 	end
 
@@ -42,17 +41,20 @@ class AccountsController < ApplicationController
 
 	def edit_profile
 		name = session[:name]
-		@user = Account.find_by(name: name)
-		
-		if @user.nil?
-			# error
-			status = -1
+		if name.nil?
+			status = -2
 		else
-			@user.email = params[:email]
-			@user.gender = params[:gender]
-			@user.birth = params[:birth]
-			@user.save
-			status = 0
+			@user = Account.find_by(name: name)
+			if @user.nil?
+				# error
+				status = -1
+			else
+				@user.email = params[:email]
+				@user.gender = params[:gender]
+				@user.birth = params[:birth]
+				@user.save
+				status = 0
+			end
 		end
 
 		respond_to do |format|
@@ -62,16 +64,17 @@ class AccountsController < ApplicationController
 
 	def edit_password
 		name = session[:name]
-		@user = Account.find_by(name: name)
-		#Account.destroy_all
-		#@user = Account.new(name: 'test', pass: 'test')
-		
-		if params[:pass_old] == @user.pass
-			@user.pass = params[:pass_new]
-			@user.save
-			status = 0
+		if name.nil?
+			status = -2
 		else
-			status = -1
+			@user = Account.find_by(name: name)
+			if params[:pass_old] == @user.pass
+				@user.pass = params[:pass_new]
+				@user.save
+				status = 0
+			else
+				status = -1
+			end
 		end
 
 		respond_to do |format|
