@@ -26,8 +26,7 @@ class AccountsController < ApplicationController
 		if @account.save
 			render :json => { :st => 0 }
 		else
-			#render :json => { :st => -1}
-			render :signup 
+			render :json => { :st => -1, :msg => @account.errors.full_messages[0] }
 		end
 	end
 
