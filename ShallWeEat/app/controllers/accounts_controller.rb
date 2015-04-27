@@ -3,6 +3,18 @@ class AccountsController < ApplicationController
   def index
   end
 
+  def login
+    @account = Account.find_by(name: params[:name])
+
+    if @account && @account.pass == params[:pass]#&& @account.authenticate(params[:pass])
+			# store session key
+			session[:name] = @account.name
+      #log_in @account
+      render :json => { user_name: params[:name]}
+    else
+      render :json => { error_code: -4 }
+    end
+  end
 
   def signup
 		@account = Account.new
@@ -10,20 +22,27 @@ class AccountsController < ApplicationController
   
 	def create
 		@account = Account.new(account_params)
+
 		if @account.save
-			redirect_to @account
+			render :json => { :st => 0 }
 		else
-			render 'signup'
+			#render :json => { :st => -1}
+			render :signup 
 		end
 	end
 
 	def edit
-		@user = Account.find(params[:id])
+		name = session[:name]
+		if name.nil?
+			redirect_to :accounts_index
+		else
+			@user = Account.find_by(name: name)
+		end
 	end
 
 	def edit_profile
-		# FIXME use session key
-		@user = Account.find_by(name: 'test')
+		name = session[:name]
+		@user = Account.find_by(name: name)
 		
 		if @user.nil?
 			# error
@@ -40,8 +59,10 @@ class AccountsController < ApplicationController
 			format.json {render :json => {:st => status}}
 		end
 	end
+
 	def edit_password
-		@user = Account.find_by(name: 'test')
+		name = session[:name]
+		@user = Account.find_by(name: name)
 		#Account.destroy_all
 		#@user = Account.new(name: 'test', pass: 'test')
 		
@@ -59,25 +80,18 @@ class AccountsController < ApplicationController
 	end
 
 	def show
-		@account = Account.find(params[:id])
-
+		name = session[:name]
+		if name.nil?
+			redirect_to :accounts_index
+		else
+			@account = Account.find_by(name: name)
+		end
 	end
 
-
-  
-  def login
-    @account = Account.find_by(name: params[:name])
-
-    if @account && @account.pass == params[:pass]#&& @account.authenticate(params[:pass])
-      @account.pass = params[:pass]
-      @account.save
-      log_in @account
-      render :json => { user_name: params[:name]}
-    else
-      render :json => { error_code: -4 }
-    end
-  end
-
+	def logout
+		session[:name] = nil
+		redirect_to :accounts_index
+	end
 
   private
 	def account_params

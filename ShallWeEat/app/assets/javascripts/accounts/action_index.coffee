@@ -16,7 +16,7 @@ $(".accounts.index").ready ->
 					if data["error_code"] is -4
 						alert "Invalid name and password combination. Please try again."
 					else
-						location.reload()
+					  window.location.replace('/accounts/show')	
 					
 		$("#signup_btn").unbind("click").click ->
 			window.location.replace('/accounts/signup')
