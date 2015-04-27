@@ -1,15 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: 
-  pass: 
+  name: UserExample90
+  pass: PassExample90
   email:
   gender: 
   birth: 
 
 two:
   name: 
-  pass: 
+  pass:
   email: 
   gender: 
   birth: 
