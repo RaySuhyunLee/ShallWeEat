@@ -1,0 +1,26 @@
+<h1> Welcome to join us!</h1>
+<%= button_to 'I wanna log out!', :accounts_logout, :method => 'get' %>
+<p>Your name is
+	<%= @account.name  %>
+</p>
+
+<p>Your password is
+	<%= @account.pass  %>
+</p>
+
+<p>Your email is
+	<%= @account.email  %>
+</p>
+
+<p>Your gender is
+	<%= if @account.gender == 0
+				'male'
+			else
+				'female'
+			end
+	%>
+</p>
+
+<p>Your birth is
+	<%= @account.birth  %>
+</p>

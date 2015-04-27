@@ -1,0 +1,46 @@
+<h1>Account Settings</h1>
+
+<%= button_to 'I want to log out~~', :accounts_logout, :method => 'get' %>
+
+<div>
+	<div>
+		<h2>Change profile</h2>
+		<p>
+			Email<br>
+			<input type="text" id="input_email" value="<%= @user.email %>">
+		</p>
+		<p>
+			Gender<br>
+			<input type="radio" name="gender" value=0
+			<% if @user.gender == 0 %>
+				checked
+			<% end %> >male
+			<input type="radio" name="gender" value=1
+			<% if @user.gender == 1 %>
+				checked
+			<% end %> >female
+		</p>
+		<p>
+			Birthday<br>
+			<input type="text" id="input_birth" value="<%= @user.birth %>">
+		</p>
+		<button id="button_edit_profile">Update profile</button>
+	</div>
+	<div>
+		<h2>Change password</h2>
+		<p>
+			Old password<br>
+			<input type="password" id="input_pass_old" />
+		</p>
+		<p>
+			New password<br>
+			<input type="password" id="input_pass_new"/>
+		</p>
+		<p>
+			Confirm new password<br>
+			<input type="password" id="input_pass_confirm"/>
+		</p>
+		<button id="button_edit_password" >Update password</button>
+	</div>
+
+</div>
