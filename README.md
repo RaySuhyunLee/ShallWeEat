@@ -10,3 +10,8 @@ bin/rails server
 ```
 
 You can access in the web browser by connecting to http://localhost:3000/account/
+
+###Some useful references
+[ruby-fann](https://github.com/tangledpath/ruby-fann)  
+[bootstrap](http://getbootstrap.com/)  
+[rails guides](http://guides.rubyonrails.org/)  
