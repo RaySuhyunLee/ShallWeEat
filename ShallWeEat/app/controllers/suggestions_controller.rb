@@ -11,25 +11,37 @@ class SuggestionsController < ApplicationController
 #	end
 
 	def get_questions
-		name = session[:name]
-		if name.nil?
-			redirect_to :accounts_index
-		else 
+		#name = session[:name]
+		#if name.nil?
+		#	redirect_to :accounts_index
+		#else 
 			#take each of the 4 answers
 			#append the 4 answers in an array of answers
 
 			#params[:radio_buttons]	
 			#else	  
 			#end
-
+			questions = [
+				'Are you starving to death?',
+				'Do you lack money?',
+				'How are you today?',
+				'Are you busy?'
+			]
 			status = 0
-		end
-	#render :json(array(q1, q2, q3, q4))
-	#render :json => {:st => status}
+			render :json => {:st => status, :questions => questions}
+		#end
+
 	end
 
 	def get_suggestion
-
+		user_answers = params[:user_answers]
+		converted = []
+		user_answers.each do |a|
+			converted.push(a.to_f)
+		end
+		print(converted)
+		outputs = run_ann(converted)
+		search_food(outputs, 0)
 	end
 
 	#def submit
