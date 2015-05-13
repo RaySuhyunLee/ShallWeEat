@@ -57,9 +57,7 @@ class AccountsController < ApplicationController
 			end
 		end
 
-		respond_to do |format|
-			format.json {render :json => {:st => status}}
-		end
+		render :json => {:st => status}
 	end
 
 	def edit_password
@@ -77,9 +75,7 @@ class AccountsController < ApplicationController
 			end
 		end
 
-		respond_to do |format|
-			format.json {render :json => {:st => status}}
-		end
+		render :json => {:st => status}
 	end
 
 	def show
