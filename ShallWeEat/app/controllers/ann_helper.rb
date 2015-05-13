@@ -1,7 +1,7 @@
 require 'ruby-fann'
 
 def init_fann
-	fann = RubyFann::Standard.new(:num_inputs=>3, :hidden_neurons=>[3, 4, 3, 4], :num_outputs=>10)
+	fann = RubyFann::Standard.new(:num_inputs=>4, :hidden_neurons=>[5, 6, 7, 8], :num_outputs=>10)
 	save_fann(fann)
 end
 
@@ -22,4 +22,11 @@ end
 def run_ann(inputs)
 	fann = load_fann
 	outputs = fann.run(inputs)
+end
+
+def teach(inputs, desired_outputs)
+	train = RubyFann::TrainData.new(:inputs=>inputs, :desired_outputs=>desired_outputs)
+	fann = load_fann
+	fann.train_on_data(train, 1000, 10, 0.1)
+	save_fann(fann)
 end
