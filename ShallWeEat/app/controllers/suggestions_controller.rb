@@ -15,15 +15,17 @@ class SuggestionsController < ApplicationController
 		else 
 			#take each of the 4 answers
 			#append the 4 answers in an array of answers
-			
-			#if params[:q1]== 'no'	    
-			#else
+
+			#params[:radio_buttons]	
+			#else	  
 			#end
 
 			status = 0
 		end
+	#render :json(array(q1, q2, q3, q4))
 	#render :json => {:st => status}
 	end
+
 
 
 
@@ -31,9 +33,9 @@ class SuggestionsController < ApplicationController
 
 	end
 
-#	def submit
-#		redirect_to :suggestions_get_suggestion
-#	end
+	#def submit
+	#	redirect_to :suggestions_get_suggestion
+	#end
 
 	def search_food(input_list, rank)
 		def abs(number)
