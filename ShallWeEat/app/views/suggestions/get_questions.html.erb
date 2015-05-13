@@ -3,7 +3,7 @@
  <br><br>
 
 
-<div class="form_row1">
+<div id="radio_buttons">
     <label for="q1">Q1. Are you hungry?:</label>
     <% [ 'no', 'a little bit', 'quite hungry', 'starving', 'starving to death' ].each do |q1| %>
       <br><%= radio_button_tag 'q1', q1, @q1 == q1 %>
@@ -40,6 +40,8 @@
 	<br><br>
 
 </div>
+
+
 
 
 
