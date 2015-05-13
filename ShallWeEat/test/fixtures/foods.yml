@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  spicy: 1
+  sour: 1
+  sweet: 1
+  salty: 1
+  bitter: 1
+  hot: 1
+  cold: 1
+  calories: 1
+  time: 1
+  price: 1
+  image: MyString
+
+two:
+  name: MyString
+  spicy: 1
+  sour: 1
+  sweet: 1
+  salty: 1
+  bitter: 1
+  hot: 1
+  cold: 1
+  calories: 1
+  time: 1
+  price: 1
+  image: MyString
