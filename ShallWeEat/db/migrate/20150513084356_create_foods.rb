@@ -14,7 +14,9 @@ class CreateFoods < ActiveRecord::Migration
       t.integer :price
       t.string :image
 
-      t.timestamps null: false
+			t.timestamps null: false
     end
+
+
   end
 end
