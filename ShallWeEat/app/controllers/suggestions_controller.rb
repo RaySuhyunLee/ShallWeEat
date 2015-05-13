@@ -1,3 +1,5 @@
+require_relative './ann_helper'
+
 class SuggestionsController < ApplicationController
 
 	def index
@@ -26,17 +28,12 @@ class SuggestionsController < ApplicationController
 	end
 
 
-
-	def get_suggestion
-
+	def get_suggestion(inputs)
 	end
 
 #	def submit
 #		redirect_to :suggestions_get_suggestion
 #	end
-
-
-
-
+	
 
 end
