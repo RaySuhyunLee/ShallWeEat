@@ -13,6 +13,13 @@ Rails.application.routes.draw do
 	post 'accounts/edit_password'
 
 	resources :accounts
+
+  get 'suggestions/get_questions' 
+  get 'suggestions/get_suggestion'
+
+  resources :suggestions
+
+
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"

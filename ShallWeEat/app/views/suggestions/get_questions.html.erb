@@ -1,0 +1,60 @@
+<h1> Questions and Answers </h1>
+<%= button_to 'I wanna log out!', :accounts_logout, :method => 'get' %>
+ <br><br>
+
+
+<div id="radio_buttons">
+    <label for="q1">Q1. Are you hungry?:</label>
+    <% [ 'no', 'a little bit', 'quite hungry', 'starving', 'starving to death' ].each do |q1| %>
+      <br><%= radio_button_tag 'q1', q1, @q1 == q1 %>
+      <%= q1.humanize %>
+    <% end %>
+
+
+	<br><br>
+
+    <label for="q2">Q2. How much can you spend?:</label>
+    <% [ '$', '$$', '$$$', '$$$$', '$$$$$' ].each do |q2| %>
+      <br><%= radio_button_tag 'q2', q2, @q2 == q2 %>
+      <%= q2.humanize %>
+    <% end %>
+
+
+    <br><br>
+
+    <label for="q3">Q3. How are you today?:</label>
+    <% [ 'a little sad', 'ok', 'good', 'happy', 'very happy' ].each do |q3| %>
+      <br><%= radio_button_tag 'q3', q3, @q3 == q3 %>
+      <%= q3.humanize %>
+    <% end %>
+
+
+    <br><br>
+
+    <label for="q4">Q4. How busy are you today?:</label>
+    <% [ 'very relaxed', 'relaxed', 'ok', 'busy', 'very busy' ].each do |q4| %>
+      <br><%= radio_button_tag 'q4', q4, @q4 == q4 %>
+      <%= q4.humanize %>
+    <% end %>
+
+	<br><br>
+
+</div>
+
+
+
+
+
+
+<div class="pagination">
+            <ul>
+              <li class="previous"><a href="#previous" class="fui-arrow-left"></a></li>
+              <li class="active"><a href="#fakelink">1</a></li>
+
+              <li><a href="#fakelink">2</a></li>
+              <li><a href="#fakelink">3</a></li>
+              <li><a href="#fakelink">4</a></li>
+              <li class="next"><a href="#fakelink" class="fui-arrow-right"></a></li>
+            </ul>
+</div>
+
