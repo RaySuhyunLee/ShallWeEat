@@ -18,7 +18,8 @@ Rails.application.routes.draw do
   get 'suggestions/get_suggestion'
 
 	get 'suggestions/questions'
-  # resources :suggestions
+	get 'suggestions/food_result'
+	# resources :suggestions
 
 
   # See how all your routes lay out with "rake routes".
