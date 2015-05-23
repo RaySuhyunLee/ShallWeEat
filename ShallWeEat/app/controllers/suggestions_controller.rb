@@ -40,8 +40,9 @@ class SuggestionsController < ApplicationController
 			converted.push(a.to_f)
 		end
 		print(converted)
-		outputs = run_ann(converted)
-		search_food(outputs, 0)
+		#outputs = run_ann(converted)
+		#search_food(outputs, 0)
+		render plain: converted.inspect
 	end
 
 	#def submit
