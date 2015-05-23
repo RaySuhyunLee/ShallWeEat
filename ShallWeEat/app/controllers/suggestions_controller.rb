@@ -33,15 +33,16 @@ class SuggestionsController < ApplicationController
 
 	end
 
-	def get_suggestion
+	def get_suggestions
 		user_answers = params[:user_answers]
-		converted = []
-		user_answers.each do |a|
-			converted.push(a.to_f)
-		end
-		print(converted)
-		#outputs = run_ann(converted)
-		#search_food(outputs, 0)
+
+		ann_inputs = answers_to_ann(answers)
+		db_inputs = ann_to_db(run_ann(ann_inputs))
+		print(ann_inputs)
+
+		session[:user_answers] = user_answers # store answer data in session
+		session[:db_inputs] = db_inputs 
+		#search_food(db_inputs, 0)
 		render plain: converted.inspect
 	end
 
@@ -91,5 +92,51 @@ class SuggestionsController < ApplicationController
 			return [name, image_src]
 	end
 
+	def feedback
+		is_good = params[:is_good]
+		cur_rank = params[:cur_rank]
+		ann_inputs = answers_to_ann(session[:user_answers])
+		db_inputs = session[:db_inputs]
+		
 
+		if is_good == 1
+			teach(ann_inputs, db_to_ann(db_inputs))
+			render :json => {st: 0}
+		else
+			# choose another food
+			food_results = search_food(db_inputs, cur_rank+1)
+			render :json => {
+				st: 0, 
+				food_rank: cur_rank+1, 
+				food_name: food_results.name, 
+				food_img: food_results.image
+			}
+		end
+	end
+	
+	def answers_to_ann(answers)
+		converted = []
+		answers.each do |a|
+			converted.push((a.to_f)/5)
+		end
+		converted
+	end
+
+	def ann_to_db(original)
+		converted = []
+		original.each do |a|
+			converted.push((a*100).round)
+		end
+		converted
+	end
+
+	def db_to_ann(results)
+		converted = []
+		results.each do |a|
+			converted.push((a.to_f)/100)
+		end
+		converted
+	end
+
+	private :answers_to_ann, :ann_to_results, :results_to_ann
 end
