@@ -36,6 +36,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Fast Artificial Neural Network Library
 gem 'ruby-fann'
 
+# Bootstrap
+
+gem "therubyracer"
+gem "less-rails-bootstrap" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem "twitter-bootstrap-rails"
+
 
 
 group :development, :test do
