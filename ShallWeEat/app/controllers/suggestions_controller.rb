@@ -36,13 +36,15 @@ class SuggestionsController < ApplicationController
 	def get_suggestions
 		user_answers = params[:user_answers]
 
-		ann_inputs = answers_to_ann(answers)
+		ann_inputs = answers_to_ann(user_answers)
 		db_inputs = ann_to_db(run_ann(ann_inputs))
 		
 		session[:user_naswers] = user_answers
 		session[:db_inputs] = db_inputs
-		#search_food(db_inputs, 0)
-		render plain: converted.inspect
+		food_results = search_food(db_inputs, 1)
+		render plain: 'ann_inputs: ' + ann_inputs.inspect + '\n' +
+			'db_inputs: ' + db_inputs.inspect + '\n' +
+			'food_results: ' + food_results.inspect
 	end
 
 	#def submit
@@ -58,7 +60,7 @@ class SuggestionsController < ApplicationController
 			end
 		end
 
-		@i = 0
+		i = 0
 		@answer = []
 
 		Food.all.each do |food|
@@ -74,13 +76,14 @@ class SuggestionsController < ApplicationController
 				abs(food.time - input_list[8]) + 
 				abs(food.price - input_list[9])
 
-			@answer[@i] = [difference_value,(@i+1)] 
-			@i = @i + 1
+			@answer[i] = [difference_value,(i+1)] 
+			i = i + 1
 		end
 		
 		@answer = @answer.sort
 
 		#rank = 1 -> most appropriate food
+		puts @answer.inspect
 		
 		food_answer = Food.find(@answer[rank - 1][1]) 
 	
@@ -134,5 +137,5 @@ class SuggestionsController < ApplicationController
 		conveted
 	end
 
-	private :answers_to_ann, :ann_to_results, :results_to_ann
+	private :answers_to_ann, :ann_to_db, :db_to_ann
 end

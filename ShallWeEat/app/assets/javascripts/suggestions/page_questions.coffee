@@ -34,7 +34,7 @@ $(".suggestions.questions").ready ->
 		window.answers[window.cnt] = answer
 		window.cnt += 1
 		if window.cnt == window.questions.length
-			window.location.replace("/suggestions/get_suggestion?"+$.param({user_answers:window.answers}))
+			window.location.replace("/suggestions/get_suggestions?"+$.param({user_answers:window.answers}))
 		else
 			show_question()
 
