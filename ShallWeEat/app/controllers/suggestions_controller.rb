@@ -85,13 +85,19 @@ class SuggestionsController < ApplicationController
 		#rank = 1 -> most appropriate food
 		puts @answer.inspect
 		
-		food_answer = Food.find(@answer[rank - 1][1]) 
+		#first 3 foods in the rank
+		food_answer1 = Food.find(@answer[rank - 1][1]) #rank = 1
+		food_answer2 = Food.find(@answer[rank][1]) #rank = 2
+		food_answer3 = Food.find(@answer[rank+1][1]) #rank = 3
 	
-		name = food_answer.name #name is food'name
-		image_src = food_answer.image #image_src is string that food image route
-
+		name1 = food_answer1.name #name is food's name
+		name2 = food_answer2.name
+		name3 = food_answer3.name
+		image_src1 = food_answer1.image #image_src is string that stores food image route
+		image_src2 = food_answer2.image
+		image_src3 = food_answer3.image
 		
-			return [name, image_src]
+			return [ [name1, image_src1], [name2, image_src2], [name3, image_src3] ]
 	end
 	
 	def feedback
