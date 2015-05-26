@@ -2,22 +2,23 @@ $(".suggestions.questions").ready ->
 	$(document).ready ->
 		initialize()
 
+	questions = []
+	answers = []
+	cnt = 0
+
 	initialize = () ->
 		$.ajax
 			url: '/suggestions/get_questions'
 			type: 'get'
 			success: (data) ->
 				if data.st == 0
-					window.questions = data.questions
-					window.answers = new Array(window.questions.length)
+					questions = data.questions
+					answers = new Array(questions.length)
 					show_question()
 		window.cnt = 0
 
-
 		$("#button_back").click ->
 			go_back()
-		$("#button_0").click ->
-			save_answer(0)
 		$("#button_1").click ->
 			save_answer(1)
 		$("#button_2").click ->
@@ -26,18 +27,20 @@ $(".suggestions.questions").ready ->
 			save_answer(3)
 		$("#button_4").click ->
 			save_answer(4)
+		$("#button_5").click ->
+			save_answer(5)
 	
 	show_question = () ->
-		$("#text_question").text(window.questions[window.cnt])
+		$("#text_question").text(questions[cnt])
 
 	save_answer = (answer) ->
-		window.answers[window.cnt] = answer
-		window.cnt += 1
-		if window.cnt == window.questions.length
-			window.location.replace("/suggestions/get_suggestions?"+$.param({user_answers:window.answers}))
+		answers[cnt] = answer
+		cnt += 1
+		if cnt == questions.length
+			window.location.replace("/suggestions/get_suggestions?"+$.param({user_answers:answers}))
 		else
 			show_question()
 
 	go_back = () ->
-		window.answers -= 1
+		cnt -= 1
 		show_question()
