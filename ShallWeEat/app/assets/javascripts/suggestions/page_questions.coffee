@@ -35,6 +35,7 @@ $(".suggestions.questions").ready ->
 	show_question = () ->
 		$("#text_question").text(questions[cnt])
 
+
 	save_answer = (answer) ->
 		answers[cnt] = answer
 		cnt += 1
@@ -45,7 +46,7 @@ $(".suggestions.questions").ready ->
 					user_answers: answers
 				success: (data) ->
 					if data.st == 0
-						$("question_view").css('display', 'none')
+						$("#question_view").css('display', 'none')
 						$("#food_result_view").css('display', 'initial')
 						show_food_info(data.food_results[0])
 						#window.location.replace("/suggestions/get_suggestions?"+$.param({user_answers:answers}))
@@ -57,6 +58,6 @@ $(".suggestions.questions").ready ->
 		show_question()
 
 	show_food_info = (food) ->
-		$("#food_name").text = food.name
+		$("#food_name").text(food.name)
 		#$("#food_desc").text = food.desc
-		$("#food_img").scr = food.img
+		$("#food_img").attr('src', food.img)

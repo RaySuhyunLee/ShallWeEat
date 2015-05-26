@@ -41,10 +41,11 @@ class SuggestionsController < ApplicationController
 		
 		session[:user_naswers] = user_answers
 		session[:db_inputs] = db_inputs
-		food_results = search_food(db_inputs, 1)
-		render plain: 'ann_inputs: ' + ann_inputs.inspect + '\n' +
-			'db_inputs: ' + db_inputs.inspect + '\n' +
-			'food_results: ' + food_results.inspect
+		food_results = search_food(db_inputs)
+		#render plain: 'ann_inputs: ' + ann_inputs.inspect + '\n' +
+		#	'db_inputs: ' + db_inputs.inspect + '\n' +
+		#	'food_results: ' + food_results.inspect
+		render json: {:st => 0, :food_results => food_results}
 	end
 
 	#def submit
@@ -97,7 +98,7 @@ class SuggestionsController < ApplicationController
 		image_src2 = food_answer2.image
 		image_src3 = food_answer3.image
 		
-			return [ [name1, image_src1], [name2, image_src2], [name3, image_src3] ]
+			return [ {name: name1, img: image_src1}, {name: name2, img: image_src2}, {name: name3, img: image_src3} ]
 	end
 	
 	def feedback
