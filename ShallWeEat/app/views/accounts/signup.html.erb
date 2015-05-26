@@ -1,32 +1,38 @@
-<h1>Sign up!</h1>
-<div class="row">
-	<%= form_for(@account, remote: true) do |f| %>
-		<p id="error_msg_box">
-		</p>
-		<p>
-			<%= f.label :nickname %>
-			<%= f.text_field :name, class: 'form-control' %>
-		</p>
-		<p>
-			<%= f.label :password %>
-			<%= f.password_field :pass, class: 'form-control' %>
-		</p>
-		<p>
-			<%= f.label :email_address %>
-			<%= f.email_field :email, class: 'form-control' %>
-		</p>
-		<p>
-			<%= f.label :gender %>
-			male?
-			<%= f.radio_button :gender, 0,  class: 'form-control' %>
-			female?
-			<%= f.radio_button :gender, 1,  class: 'form-control' %>
-		</p>
-		<p>
-			<%= f.label :birth %>
-			<%= f.date_select :birth, start_year: 1950%>
-		</p>
-			<%= f.submit "Create my account!", class: "btn btn-primart" %>
+<%= render "suggestions/menu" %>
+
+<div class ="container">
+	<div class="row">
+		<h1>Sign up!</h1>
 		
+		<div class = "margin_top_50px">
+		<%= form_for(@account, remote: true) do |f| %>
+			<p id="error_msg_box">
+			</p>
+			<p>
+				<%= f.label :nickname %>
+				<%= f.text_field :name, class: 'form-control' %>
+			</p>
+			<p>
+				<%= f.label :password %>
+				<%= f.password_field :pass, class: 'form-control' %>
+			</p>
+			<p>
+				<%= f.label :email_address %>
+				<%= f.email_field :email, class: 'form-control' %>
+			</p>
+			<p>
+				<%= f.label :gender %>
+				<br>male?
+				<%= f.radio_button :gender, 0 %>
+				female?
+				<%= f.radio_button :gender, 1 %>
+			</p>
+			<p>
+				<%= f.label :birth %>
+				<%= f.date_select :birth, start_year: 1950%>
+			</p>
+				<%= f.submit "Create my account!", class: "btn btn-primart" %>
 		<% end %>
+		</div>
+	</div>
 </div>

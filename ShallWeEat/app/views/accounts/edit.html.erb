@@ -1,9 +1,9 @@
-<h1>Account Settings</h1>
+<%= render "suggestions/menu" %>
 
-<%= button_to 'I want to log out~~', :accounts_logout, :method => 'get' %>
-
-<div>
-	<div>
+<div class = "container">
+	<div class = "row">
+	
+		<h1>Account Settings</h1>
 		<h2>Change profile</h2>
 		<p>
 			Email<br>
@@ -25,8 +25,6 @@
 			<input type="text" id="input_birth" value="<%= @user.birth %>">
 		</p>
 		<button id="button_edit_profile">Update profile</button>
-	</div>
-	<div>
 		<h2>Change password</h2>
 		<p>
 			Old password<br>

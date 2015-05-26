@@ -1,31 +1,39 @@
-<h1> Welcome to join us!</h1>
-<%= button_to 'I wanna log out!', :accounts_logout, :method => 'get' %>
-<p>Your name is
-	<%= @account.name  %>
-</p>
+<%= render "suggestions/menu" %>
 
-<p>Your password is
-	<%= @account.pass  %>
-</p>
+<div class = "container">
+	<div class = "row">
+		<div class = "margin_top_100px">
+			<h1>Welcome to join us!</h1>
+		</div>
 
-<p>Your email is
-	<%= @account.email  %>
-</p>
+			<div class = "margin_top_50px">
+				<p class = "text-primary">Your name is
+						<%= @account.name  %>
+				</p>
 
-<p>Your gender is
-	<%= if @account.gender == 0
-				'male'
-			else
-				'female'
-			end
-	%>
-</p>
+				<p class = "text-primary">Your password is
+					<%= @account.pass  %>
+				</p>
 
-<p>Your birth is
-	<%= @account.birth  %>
-</p>
+				<p class = "text-primary">Your email is
+					<%= @account.email  %>
+				</p>
 
+				<p class = "text-primary">Your gender is
+					<%= if @account.gender == 0
+								'male'
+							else
+								'female'
+							end
+					%>
+				</p>
 
+				<p class = "text-primary">Your birth is
+					<%= @account.birth  %>
+				</p>
+		</div>
+	</div>
+</div>
 
 
 
