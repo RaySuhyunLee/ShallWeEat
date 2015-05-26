@@ -1,24 +1,23 @@
 <%= render "menu" %>
 
-<div id="Food_info">
-		<header>
-			<p id = "food_name">Food name</p>
-		</header>
-		<div>
-			<aside>
-				<button id = "bad">Bad</button>
-			</aside>
-				
-		<section>
-			<header>
-				<img src="" id = "food_image">image here</img>
-			</header>
-			<article>
-				<p id = "description">Description</p>
-			</article>
-		</section>
-			<aside>
-				<button id = "good">Good</button>
-			</aside>				
+<div id="page" class="hfeed">
+<div class = "container">
+	<div id class = "row">
+		<div id = "left_layout" class = "col-md-3" role = "comlementary">
+				<img src = "/assets/bad_image.png" class = "center-block" alt = "bad" id = "bad" height = "70%" width = "70%">
 		</div>
+	
+	
+		<div id = "main" class = "col-md-6" role = "main">
+			<div class = "text-center">
+				<p id = "food_name">Food name</p>
+				<p id = "description">Description</p>
+			</div>
+		</div>
+
+		<div id = "right_layout" class = "col-md-3" role = "complementary">
+		<img src = "/assets/good_image.png" class = "center-block" alt = "good" id = "good" height = "70%" width = "70%">
+		</div>
+	</div>
+</div>
 </div>
