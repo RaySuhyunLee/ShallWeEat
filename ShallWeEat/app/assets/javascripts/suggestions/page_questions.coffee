@@ -7,6 +7,8 @@ $(".suggestions.questions").ready ->
 	cnt = 0
 
 	initialize = () ->
+		$("#question_view").css('display', 'initial')
+		$("#food_result_view").css('display', 'none')
 		$.ajax
 			url: '/suggestions/get_questions'
 			type: 'get'
@@ -37,10 +39,24 @@ $(".suggestions.questions").ready ->
 		answers[cnt] = answer
 		cnt += 1
 		if cnt == questions.length
-			window.location.replace("/suggestions/get_suggestions?"+$.param({user_answers:answers}))
+			$.ajax
+				url: '/suggestions/get_suggestions'
+				data:
+					user_answers: answers
+				success: (data) ->
+					if data.st == 0
+						$("question_view").css('display', 'none')
+						$("#food_result_view").css('display', 'initial')
+						show_food_info(data.food_results[0])
+						#window.location.replace("/suggestions/get_suggestions?"+$.param({user_answers:answers}))
 		else
 			show_question()
 
 	go_back = () ->
 		cnt -= 1
 		show_question()
+
+	show_food_info = (food) ->
+		$("#food_name").text = food.name
+		#$("#food_desc").text = food.desc
+		$("#food_img").scr = food.img
