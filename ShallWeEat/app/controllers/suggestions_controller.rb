@@ -33,15 +33,18 @@ class SuggestionsController < ApplicationController
 
 	end
 
-	def get_suggestion
+	def get_suggestions
 		user_answers = params[:user_answers]
-		converted = []
-		user_answers.each do |a|
-			converted.push(a.to_f)
-		end
-		print(converted)
-		outputs = run_ann(converted)
-		search_food(outputs, 0)
+
+		ann_inputs = answers_to_ann(user_answers)
+		db_inputs = ann_to_db(run_ann(ann_inputs))
+		
+		session[:user_naswers] = user_answers
+		session[:db_inputs] = db_inputs
+		food_results = search_food(db_inputs, 1)
+		render plain: 'ann_inputs: ' + ann_inputs.inspect + '\n' +
+			'db_inputs: ' + db_inputs.inspect + '\n' +
+			'food_results: ' + food_results.inspect
 	end
 
 	#def submit
@@ -57,7 +60,7 @@ class SuggestionsController < ApplicationController
 			end
 		end
 
-		@i = 0
+		i = 0
 		@answer = []
 
 		Food.all.each do |food|
@@ -73,13 +76,14 @@ class SuggestionsController < ApplicationController
 				abs(food.time - input_list[8]) + 
 				abs(food.price - input_list[9])
 
-			@answer[@i] = [difference_value,(@i+1)] 
-			@i = @i + 1
+			@answer[i] = [difference_value,(i+1)] 
+			i = i + 1
 		end
 		
 		@answer = @answer.sort
 
 		#rank = 1 -> most appropriate food
+		puts @answer.inspect
 		
 		food_answer = Food.find(@answer[rank - 1][1]) 
 	
@@ -89,6 +93,49 @@ class SuggestionsController < ApplicationController
 		
 			return [name, image_src]
 	end
+	
+	def feedback
+		is_good = params[:is_good]
+		ann_inputs = answers_to_an(session[:user_answers])
+		db_inputs = session[:db_inputs]
 
+		if is_good == 1
+			teach(ann_inputs, db_to_ann(db_inputs))
+			render :json => {st: 0}
+		else
+			food_results = search_food(db_inputs, cur_rank+1)
+			render :json => {
+				st: 0,
+				food_rank: cur_rank+1,
+				food_name: food_results.name,
+				food_img: food_results.image
+			}
+		end
+	end
 
+	def answers_to_ann(answers)
+		converted = []
+		answers.each do |a|
+			converted.push((a.to_f)/5)
+		end
+		converted
+	end
+
+	def ann_to_db(original)
+		conveted = []
+		original.each do |a|
+			conveted.push((a*100).round)
+		end
+		conveted
+	end
+
+	def db_to_ann(results)
+		conveted = []
+		results.each do |a|
+			conveted.push((a.to_f)/100)
+		end
+		conveted
+	end
+
+	private :answers_to_ann, :ann_to_db, :db_to_ann
 end

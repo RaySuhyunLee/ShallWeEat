@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   resources :accounts
 
   get 'suggestions/get_questions' 
-  get 'suggestions/get_suggestion'
+  get 'suggestions/get_suggestions'
 
   get 'suggestions/questions'
   get 'suggestions/food_result'

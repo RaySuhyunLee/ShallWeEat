@@ -9,9 +9,11 @@ $(".suggestions.questions").ready ->
 			success: (data) ->
 				if data.st == 0
 					window.questions = data.questions
+					window.answers = new Array(window.questions.length)
+					show_question()
 		window.cnt = 0
-		window.answers = new Array(window.questions.length)
-		show_question()
+
+
 		$("#button_back").click ->
 			go_back()
 		$("#button_0").click ->
@@ -26,14 +28,16 @@ $(".suggestions.questions").ready ->
 			save_answer(4)
 	
 	show_question = () ->
-		$("text_question").text(window.questions[window.cnt])
+		$("#text_question").text(window.questions[window.cnt])
 
-	save_answer(answer) ->
+	save_answer = (answer) ->
 		window.answers[window.cnt] = answer
 		window.cnt += 1
 		if window.cnt == window.questions.length
-			window.location.replace("/suggestions/get_suggestions")
+			window.location.replace("/suggestions/get_suggestions?"+$.param({user_answers:window.answers}))
+		else
+			show_question()
 
-	go_back() ->
+	go_back = () ->
 		window.answers -= 1
 		show_question()
