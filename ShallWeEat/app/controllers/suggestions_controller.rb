@@ -86,9 +86,9 @@ class SuggestionsController < ApplicationController
 		puts @answer.inspect
 		
 		#first 3 foods in the rank
-		food_answer1 = Food.find(@answer[rank - 1][1]) #rank = 1
-		food_answer2 = Food.find(@answer[rank][1]) #rank = 2
-		food_answer3 = Food.find(@answer[rank+1][1]) #rank = 3
+		food_answer1 = Food.find(@answer[0][1]) #rank = 1
+		food_answer2 = Food.find(@answer[1][1]) #rank = 2
+		food_answer3 = Food.find(@answer[2][1]) #rank = 3
 	
 		name1 = food_answer1.name #name is food's name
 		name2 = food_answer2.name
