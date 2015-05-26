@@ -51,7 +51,7 @@ class SuggestionsController < ApplicationController
 	#	redirect_to :suggestions_get_suggestion
 	#end
 
-	def search_food(input_list, rank)
+	def search_food(input_list)
 		def abs(number)
 			if(number > 0)
 				number
