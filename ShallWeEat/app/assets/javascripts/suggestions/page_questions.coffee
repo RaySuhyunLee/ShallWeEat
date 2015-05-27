@@ -9,6 +9,9 @@ $(".suggestions.questions").ready ->
 	food_results = []
 
 	initialize = () ->
+		answers = []
+		cnt = 0
+	
 		$("#question_view").css('display', 'initial')
 		$("#food_result_view").css('display', 'none')
 		$.ajax
@@ -19,7 +22,6 @@ $(".suggestions.questions").ready ->
 					questions = data.questions
 					answers = new Array(questions.length)
 					show_question()
-		window.cnt = 0
 
 		$("#button_back").click ->
 			go_back()
@@ -81,7 +83,7 @@ $(".suggestions.questions").ready ->
 			data:
 				is_good: 1
 				user_answers: answers
-				food_index: food_index
+				food_data: food_results[food_index].data
 			success: (data) ->
 				if data.st == 0
 					initialize()

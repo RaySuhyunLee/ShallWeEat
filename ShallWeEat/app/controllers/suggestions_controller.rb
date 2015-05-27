@@ -61,6 +61,21 @@ class SuggestionsController < ApplicationController
 			end
 		end
 
+		def makeTuple(food)
+			[
+				food.spicy,
+				food.sour,
+				food.sweet,
+				food.salty,
+				food.bitter,
+				food.hot,
+				food.cold,
+				food.calories,
+				food.time,
+				food.price
+			]
+		end
+
 		i = 0
 		@answer = []
 
@@ -98,17 +113,19 @@ class SuggestionsController < ApplicationController
 		image_src2 = food_answer2.image
 		image_src3 = food_answer3.image
 		
-			return [ {name: name1, img: image_src1}, {name: name2, img: image_src2}, {name: name3, img: image_src3} ]
+			return [
+				{name: name1, img: image_src1, data: makeTuple(food_answer1)},
+				{name: name2, img: image_src2, data: makeTuple(food_answer2)},
+				{name: name3, img: image_src3, data: makeTuple(food_answer3)} ]
 	end
 	
 	def feedback
 		is_good = params[:is_good]
 		ann_inputs = answers_to_ann(params[:user_answers])
-		food_index = params[:food_index]
-		#db_inputs = search_db(
+		food_data = params[:food_data]
 
 		if is_good == 1
-			#teach(ann_inputs, db_to_ann(db_inputs))
+			teach(ann_inputs, db_to_ann(food_data))
 			render :json => {st: 0}
 		else
 			render :json => {st: 0}
