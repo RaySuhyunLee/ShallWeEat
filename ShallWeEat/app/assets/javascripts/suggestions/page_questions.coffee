@@ -5,6 +5,8 @@ $(".suggestions.questions").ready ->
 	questions = []
 	answers = []
 	cnt = 0
+	food_index = 0
+	food_results = []
 
 	initialize = () ->
 		$("#question_view").css('display', 'initial')
@@ -31,6 +33,10 @@ $(".suggestions.questions").ready ->
 			save_answer(4)
 		$("#button_5").click ->
 			save_answer(5)
+		$("#button_good").click ->
+			like()
+		$("#button_bad").click ->
+			dislike()
 	
 	show_question = () ->
 		$("#text_question").text(questions[cnt])
@@ -46,9 +52,9 @@ $(".suggestions.questions").ready ->
 					user_answers: answers
 				success: (data) ->
 					if data.st == 0
-						$("#question_view").css('display', 'none')
-						$("#food_result_view").css('display', 'initial')
-						show_food_info(data.food_results[0])
+						food_results = data.food_results
+						show_food_result_view()
+						show_food_info()
 						#window.location.replace("/suggestions/get_suggestions?"+$.param({user_answers:answers}))
 		else
 			show_question()
@@ -57,7 +63,29 @@ $(".suggestions.questions").ready ->
 		cnt -= 1
 		show_question()
 
-	show_food_info = (food) ->
+	show_food_result_view = () ->
+		$("#question_view").css('display', 'none')
+		$("#food_result_view").css('display', 'initial')
+		food_index = 0
+
+	show_food_info = () ->
+		food = food_results[food_index]
 		$("#food_name").text(food.name)
 		#$("#food_desc").text = food.desc
 		$("#food_img").attr('src', food.img)
+
+	like = () ->
+		$.ajax
+			type: 'post'
+			url: '/suggestions/feedback'
+			data:
+				is_good: 1
+				user_answers: answers
+				food_index: food_index
+			success: (data) ->
+				if data.st == 0
+					initialize()
+	
+	dislike = () ->
+		food_index += 1
+		show_food_info()

@@ -103,20 +103,15 @@ class SuggestionsController < ApplicationController
 	
 	def feedback
 		is_good = params[:is_good]
-		ann_inputs = answers_to_an(session[:user_answers])
-		db_inputs = session[:db_inputs]
+		ann_inputs = answers_to_ann(params[:user_answers])
+		food_index = params[:food_index]
+		#db_inputs = search_db(
 
 		if is_good == 1
-			teach(ann_inputs, db_to_ann(db_inputs))
+			#teach(ann_inputs, db_to_ann(db_inputs))
 			render :json => {st: 0}
 		else
-			food_results = search_food(db_inputs, cur_rank+1)
-			render :json => {
-				st: 0,
-				food_rank: cur_rank+1,
-				food_name: food_results.name,
-				food_img: food_results.image
-			}
+			render :json => {st: 0}
 		end
 	end
 
