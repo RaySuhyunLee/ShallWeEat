@@ -5,19 +5,22 @@ Rails.application.routes.draw do
   post 'login' => 'accounts#login'
   post 'signup' => 'accounts#signup'
 
-	get 'accounts/index'
+  get 'accounts/index'
   get 'accounts/signup'
-	get 'accounts/edit'
-	get 'accounts/logout'
-	post 'accounts/edit_profile'
-	post 'accounts/edit_password'
+  get 'accounts/edit'
+  get 'accounts/logout'
+  post 'accounts/edit_profile'
+  post 'accounts/edit_password'
 
-	resources :accounts
+  resources :accounts
 
   get 'suggestions/get_questions' 
-  get 'suggestions/get_suggestion'
+  get 'suggestions/get_suggestions'
 
-  resources :suggestions
+  get 'suggestions/questions'
+  get 'suggestions/food_result'
+	post 'suggestions/feedback'
+  # resources :suggestions
 
 
   # See how all your routes lay out with "rake routes".

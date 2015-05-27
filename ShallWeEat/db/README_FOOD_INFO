@@ -1,0 +1,33 @@
+//it's food info
+
+//format
+Food.create(name: "", spicy:, sour:, sweet:, salty:, bitter:, hot:, cold:, calories:, time:, price:, image: "")
+
+//food
+
+//1
+Food.create(name: "chicken_original", spicy: 20, sour: 5, sweet: 50, salty: 50, bitter: 5, hot: 70, cold: 30, calories: 247, time: 50, price: 50, image: "/assets/chicken_original.png") //middle size one piece
+
+//2
+Food.create(name: "ramen", spicy:70, sour:0, sweet:20, salty:30, bitter:0, hot:80, cold:20, calories:385, time:5, price:5, image: "/assets/ramen.png") 
+
+//3
+Food.create(name: "back_bean_sauce_noodles", spicy: 20, sour: 5, sweet:40, salty:30, bitter:5, hot:50, cold:50, calories: 785, time:15, price:18, image: "/assets/balck_bean_sauce_noodles.png")
+
+//4
+Food.create(name: "steak", spicy:10, sour:5, sweet:60, salty:40, bitter:0, hot:40, cold:60, calories:252, time:80, price:85, image: "/assets/steak.png")
+
+//5
+Food.create(name: "tomatto_spaghetti", spicy:35, sour:0, sweet:45, salty:20, bitter:2, hot:40, cold:60, calories:220, time:70, price:67, image: "/assets/tomatto_spaghetti.png")
+
+//6
+Food.create(name: "burrito", spicy:30, sour:10, sweet:38, salty:45, bitter:5, hot:37, cold:63, calories:282, time:30, price:20, image: "/assets/burrito.png")
+
+//7
+Food.create(name: "pizza", spicy: 34, sour:0, sweet:44, salty:50, bitter:2, hot:43, cold:57, calories:208, time:50, price:53, image: "/assets/pizza.png") //one piece
+
+//8
+Food.create(name: "hamburger", spicy:10, sour:3, sweet:33, salty:48, bitter:1, hot:27, cold:73, calories:270, time:20, price:28, image: "/assets/hamburger.png")
+
+//9
+Food.create(name: "fish_chips", spicy:10, sour:30, sweet:65, salty:40, bitter:0, hot:40, cold:0, calories:838, time:25, price:30, image: "/assets/fish_chips.png")
