@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   get 'suggestions/questions'
   get 'suggestions/food_result'
+	post 'suggestions/feedback'
   # resources :suggestions
 
 

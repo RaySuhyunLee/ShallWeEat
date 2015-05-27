@@ -41,10 +41,11 @@ class SuggestionsController < ApplicationController
 		
 		session[:user_naswers] = user_answers
 		session[:db_inputs] = db_inputs
-		food_results = search_food(db_inputs, 1)
-		render plain: 'ann_inputs: ' + ann_inputs.inspect + '\n' +
-			'db_inputs: ' + db_inputs.inspect + '\n' +
-			'food_results: ' + food_results.inspect
+		food_results = search_food(db_inputs)
+		#render plain: 'ann_inputs: ' + ann_inputs.inspect + '\n' +
+		#	'db_inputs: ' + db_inputs.inspect + '\n' +
+		#	'food_results: ' + food_results.inspect
+		render json: {:st => 0, :food_results => food_results}
 	end
 
 	#def submit
@@ -58,6 +59,21 @@ class SuggestionsController < ApplicationController
 			else
 				-number
 			end
+		end
+
+		def makeTuple(food)
+			[
+				food.spicy,
+				food.sour,
+				food.sweet,
+				food.salty,
+				food.bitter,
+				food.hot,
+				food.cold,
+				food.calories,
+				food.time,
+				food.price
+			]
 		end
 
 		i = 0
@@ -97,25 +113,22 @@ class SuggestionsController < ApplicationController
 		image_src2 = food_answer2.image
 		image_src3 = food_answer3.image
 		
-			return [ [name1, image_src1], [name2, image_src2], [name3, image_src3] ]
+			return [
+				{name: name1, img: image_src1, data: makeTuple(food_answer1)},
+				{name: name2, img: image_src2, data: makeTuple(food_answer2)},
+				{name: name3, img: image_src3, data: makeTuple(food_answer3)} ]
 	end
 	
 	def feedback
 		is_good = params[:is_good]
-		ann_inputs = answers_to_an(session[:user_answers])
-		db_inputs = session[:db_inputs]
+		ann_inputs = answers_to_ann(params[:user_answers])
+		food_data = params[:food_data]
 
 		if is_good == 1
-			teach(ann_inputs, db_to_ann(db_inputs))
+			teach(ann_inputs, db_to_ann(food_data))
 			render :json => {st: 0}
 		else
-			food_results = search_food(db_inputs, cur_rank+1)
-			render :json => {
-				st: 0,
-				food_rank: cur_rank+1,
-				food_name: food_results.name,
-				food_img: food_results.image
-			}
+			render :json => {st: 0}
 		end
 	end
 
