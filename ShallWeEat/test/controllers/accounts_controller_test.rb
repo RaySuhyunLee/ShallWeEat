@@ -45,6 +45,7 @@ class AccountsControllerTest < ActionController::TestCase
      assert json['st'] == -2
   end
 
+
   test "#edit_profile_with_login" do
   	get :logout
   	post :login, {'name' => 'UserExample90', 'pass' => 'PassExample90'}
@@ -97,6 +98,24 @@ class AccountsControllerTest < ActionController::TestCase
    end
 
 
+   test "#signup" do  
+     post :signup, {'name' => 'UserExample90', 'pass' => 'PassExample90'}
+   end
+
+  test "#edit_with_login" do
+    get :logout
+    post :login, {'name' => 'UserExample90', 'pass' => 'PassExample90'}
+    get :edit
+  end
+
+
+  test "#edit_password_with_login" do
+    get :logout
+    post :login, {'name' => 'UserExample90', 'pass' => 'PassExample90'}
+    get :edit_password
+  end
+
+  
 
 end
 
