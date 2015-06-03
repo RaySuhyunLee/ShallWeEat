@@ -1,4 +1,5 @@
 require_relative './ann_helper'
+require 'net/http'
 
 class SuggestionsController < ApplicationController
 
@@ -42,10 +43,14 @@ class SuggestionsController < ApplicationController
 		session[:user_naswers] = user_answers
 		session[:db_inputs] = db_inputs
 		food_results = search_food(db_inputs)
-		#render plain: 'ann_inputs: ' + ann_inputs.inspect + '\n' +
-		#	'db_inputs: ' + db_inputs.inspect + '\n' +
-		#	'food_results: ' + food_results.inspect
-		render json: {:st => 0, :food_results => food_results}
+
+		url = URI.parse('http://openapi.naver.com/search?key=c1b406b32dbbbbeee5f2a36ddc14067f&query=%EA%B0%88%EB%B9%84%EC%A7%91&target=local&start=1&display=10')
+		req = Net::HTTP::Get.new(url.to_s)
+		res = Net::HTTP.start(url.host, url.port) do |http|
+			  http.request(req)
+		end
+
+		render json: {:st => 0, :food_results => food_results, :restaurants => res.body}
 	end
 
 	#def submit

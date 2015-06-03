@@ -9,20 +9,6 @@ $(".suggestions.questions").ready ->
 	food_results = []
 
 	initialize = () ->
-		answers = []
-		cnt = 0
-	
-		$("#question_view").css('display', 'initial')
-		$("#food_result_view").css('display', 'none')
-		$.ajax
-			url: '/suggestions/get_questions'
-			type: 'get'
-			success: (data) ->
-				if data.st == 0
-					questions = data.questions
-					answers = new Array(questions.length)
-					show_question()
-
 		$("#button_back").click ->
 			go_back()
 		$("#button_1").click ->
@@ -39,43 +25,62 @@ $(".suggestions.questions").ready ->
 			like()
 		$("#button_bad").click ->
 			dislike()
+
+		show_question_view()
 	
 	show_question = () ->
 		$("#text_question").text(questions[cnt])
-
 
 	save_answer = (answer) ->
 		answers[cnt] = answer
 		cnt += 1
 		if cnt == questions.length
-			$.ajax
-				url: '/suggestions/get_suggestions'
-				data:
-					user_answers: answers
-				success: (data) ->
-					if data.st == 0
-						food_results = data.food_results
-						show_food_result_view()
-						show_food_info()
-						#window.location.replace("/suggestions/get_suggestions?"+$.param({user_answers:answers}))
+			show_food_result_view()
 		else
 			show_question()
 
 	go_back = () ->
-		cnt -= 1
-		show_question()
+		if cnt > 0
+			cnt -= 1
+			show_question()
+
+	show_question_view = () ->
+		$("#question_view").css('display', 'initial')
+		$("#food_result_view").css('display', 'none')
+
+		$.ajax
+			url: '/suggestions/get_questions'
+			type: 'get'
+			success: (data) ->
+				if data.st == 0
+					cnt = 0
+					questions = data.questions
+					answers = new Array(questions.length)
+					show_question()
 
 	show_food_result_view = () ->
+		$.ajax
+			url: '/suggestions/get_suggestions'
+			data:
+				user_answers: answers
+			success: (data) ->
+				if data.st == 0
+					food_results = data.food_results
+					show_food_info()
+
 		$("#question_view").css('display', 'none')
 		$("#food_result_view").css('display', 'initial')
 		food_index = 0
-
+		
 	show_food_info = () ->
 		food = food_results[food_index]
 		$("#food_name").text(food.name)
 		#$("#food_desc").text = food.desc
 		$("#food_img").attr('src', food.img)
 
+	show_restaurant = () ->
+		alert("hello")
+	
 	like = () ->
 		$.ajax
 			type: 'post'
@@ -86,7 +91,7 @@ $(".suggestions.questions").ready ->
 				food_data: food_results[food_index].data
 			success: (data) ->
 				if data.st == 0
-					initialize()
+					window.location.replace('/suggestions/questions')
 	
 	dislike = () ->
 		food_index += 1
