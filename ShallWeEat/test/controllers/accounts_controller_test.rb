@@ -64,6 +64,9 @@ class AccountsControllerTest < ActionController::TestCase
   end
 
 
+
+
+
   #test "#edit_notnilname" do
    # post :login, {'name' => 'UserExample90', 'pass' => 'PassExample90'}
     #get :edit
@@ -109,12 +112,15 @@ class AccountsControllerTest < ActionController::TestCase
   end
 
 
+
+  #FIXME
   test "#edit_password_with_login" do
     get :logout
     post :login, {'name' => 'UserExample90', 'pass' => 'PassExample90'}
-    get :edit_password
+    post :edit_password, {'pass_old' => 'PassExample90', 'pass_new'=> 'PassExample99'}
+    json = JSON.parse(response.body)
+     assert json['st'] == 0
   end
-
   
 
 end
