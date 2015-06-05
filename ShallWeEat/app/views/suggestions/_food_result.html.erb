@@ -1,20 +1,32 @@
 <div id = "food_result_view" class = "container">
 	<div id class = "row">
+
 		<div id = "left_layout" class = "col-md-3" role = "comlementary">
-				<img src = "/assets/Thumbs_down_icon.png" class = "center-block" alt = "bad" id = "button_bad" height = "70%" width = "70%">
+			<div class = "margin_top_200px">
+				<img src = "/assets/Thumbs_down_icon.png" class = "animated infinite slow bounce pull-right" alt = "bad" id = "button_bad" height = 70% width = 70%>
+			</div>
 		</div>
-	
-	
 		<div id = "main" class = "col-md-6" role = "main">
 			<div class = "text-center">
-				<p id = "food_name">Food name</p>
-				<p id = "food_desc">Description</p>
-				<img id = "food_img" class = "center-block">
+				<div class="page-header">
+  				<h1>See Your Food!<small> Click LIKE or DISLIKE button</small></h1>
+				</div>
+			<div class="panel panel-primary">
+			  <div class="panel-heading">				
+					<h1 id = "food_name">Food name</h1>
+  			</div>
+  			<div class="panel-body">
+					<img id = "food_img" class = " center-block" width = 50% >
+  			</div>
+			</div>	
+	
 			</div>
 		</div>
 
 		<div id = "right_layout" class = "col-md-3" role = "complementary">
-		<img src = "/assets/Thumbs_up_icon.png" class = "center-block" alt = "good" id = "button_good" height = "70%" width = "70%">
+			<div class = "margin_top_200px">
+				<img src = "/assets/Thumbs_up_icon.png" class = "animated infinite slow bounce pull-left" alt = "good" id = "button_good" height = 70% width = 70%>
+			</div>
 		</div>
 	</div>
 </div>
