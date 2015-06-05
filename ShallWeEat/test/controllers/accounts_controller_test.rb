@@ -45,6 +45,7 @@ class AccountsControllerTest < ActionController::TestCase
      assert json['st'] == -2
   end
 
+
   test "#edit_profile_with_login" do
   	get :logout
   	post :login, {'name' => 'UserExample90', 'pass' => 'PassExample90'}
@@ -61,6 +62,9 @@ class AccountsControllerTest < ActionController::TestCase
     json = JSON.parse(response.body)
     assert json['st'] == -2
   end
+
+
+
 
 
   #test "#edit_notnilname" do
@@ -97,6 +101,27 @@ class AccountsControllerTest < ActionController::TestCase
    end
 
 
+   test "#signup" do  
+     post :signup, {'name' => 'UserExample90', 'pass' => 'PassExample90'}
+   end
+
+  test "#edit_with_login" do
+    get :logout
+    post :login, {'name' => 'UserExample90', 'pass' => 'PassExample90'}
+    get :edit
+  end
+
+
+
+  #FIXME
+  test "#edit_password_with_login" do
+    get :logout
+    post :login, {'name' => 'UserExample90', 'pass' => 'PassExample90'}
+    post :edit_password, {'pass_old' => 'PassExample90', 'pass_new'=> 'PassExample99'}
+    json = JSON.parse(response.body)
+     assert json['st'] == 0
+  end
+  
 
 end
 

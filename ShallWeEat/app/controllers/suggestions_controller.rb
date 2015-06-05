@@ -3,11 +3,9 @@ require_relative './ann_helper'
 class SuggestionsController < ApplicationController
 
 	def index
-
 	end
 
-#	def show
-		
+#	def show	
 #	end
 
 	def get_questions
