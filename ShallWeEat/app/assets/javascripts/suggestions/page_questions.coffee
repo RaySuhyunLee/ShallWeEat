@@ -67,6 +67,7 @@ $(".suggestions.questions").ready ->
 				if data.st == 0
 					food_results = data.food_results
 					show_food_info()
+					draw_map()
 
 		$("#question_view").css('display', 'none')
 		$("#food_result_view").css('display', 'initial')
@@ -78,9 +79,6 @@ $(".suggestions.questions").ready ->
 		#$("#food_desc").text = food.desc
 		$("#food_img").attr('src', food.img)
 
-	show_restaurant = () ->
-		alert("hello")
-	
 	like = () ->
 		$.ajax
 			type: 'post'
@@ -96,3 +94,9 @@ $(".suggestions.questions").ready ->
 	dislike = () ->
 		food_index += 1
 		show_food_info()
+
+	draw_map = () ->
+		map = new nhn.api.map.Map("map")#, {
+			#point: new nhn.api.map.LatLng(37.5675451, 126.9773356)
+			#size: new nhn.api.map.Size(500, 400)
+		#})
