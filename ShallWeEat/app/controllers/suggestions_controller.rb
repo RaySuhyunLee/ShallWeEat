@@ -49,8 +49,13 @@ class SuggestionsController < ApplicationController
 		res = Net::HTTP.start(url.host, url.port) do |http|
 			  http.request(req)
 		end
+		res.body.force_encoding('ISO-8859-1')
 
-		render json: {:st => 0, :food_results => food_results, :restaurants => res.body}
+		render json: {
+			:st => 0,
+			:food_results => food_results,
+			:restaurants => Hash.from_xml(res.body).to_json
+		}
 	end
 
 	#def submit
