@@ -55,7 +55,7 @@ class SuggestionsController < ApplicationController
 		render json: {
 			:st => 0,
 			:food_results => food_results,
-			:restaurants => Hash.from_xml(res.body).to_json
+			:restaurants => (Hash.from_xml(res.body))['rss']['channel']['item']
 		}
 	end
 

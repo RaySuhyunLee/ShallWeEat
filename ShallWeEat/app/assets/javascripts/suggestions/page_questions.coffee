@@ -67,7 +67,7 @@ $(".suggestions.questions").ready ->
 				if data.st == 0
 					food_results = data.food_results
 					show_food_info()
-					draw_map()
+					draw_map(data.restaurants)
 
 		$("#question_view").css('display', 'none')
 		$("#food_result_view").css('display', 'initial')
@@ -95,8 +95,27 @@ $(".suggestions.questions").ready ->
 		food_index += 1
 		show_food_info()
 
-	draw_map = () ->
-		map = new nhn.api.map.Map("map")#, {
-			#point: new nhn.api.map.LatLng(37.5675451, 126.9773356)
-			#size: new nhn.api.map.Size(500, 400)
-		#})
+	draw_map = (restaurants) ->
+		coors = $.map(restaurants, (e, idx) ->
+				new nhn.api.map.TM128(e.mapx, e.mapy)
+		)
+		map = new nhn.api.map.Map("map", {
+			boundary: coors
+			minMaxLevel: [1, 14]
+			size: new nhn.api.map.Size(1000, 800)
+		})
+		
+		oOffset = new nhn.api.map.Size(14, 37)
+		oSize = new nhn.api.map.Size(28, 37)
+		icon = new nhn.api.map.Icon("http://static.naver.com/maps2/icons/pin_spot2.png", oSize, oOffset)
+		for i in [0..restaurants.length]
+			marker = new nhn.api.map.Marker(icon, {
+				point: coors[i]
+				zIndex: i
+				title: restaurants[i].title
+			})
+			map.addOverlay(marker)
+
+		label = new nhn.api.map.MarkerLabel()
+		label.setVisible(true, marker)
+		map.addOverlay(label)
