@@ -122,10 +122,25 @@ class AccountsControllerTest < ActionController::TestCase
      assert json['st'] == 0
   end
   
+   test "#edit_password_with_login_2" do
+     get :logout
+     post :login, {'name' => 'UserExample90', 'pass' => 'PassExample90'}
+     post :edit_password
+     json = JSON.parse(response.body)
+      assert json['st'] == -1
+   end
+
+
+	test "#create" do
+	
+	
+		post :create
+    json = JSON.parse(response.body)
+		assert json['st'] == 0
+
+	end
 
 end
-
-
 
 
 
