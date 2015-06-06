@@ -108,14 +108,30 @@ $(".suggestions.questions").ready ->
 		oOffset = new nhn.api.map.Size(14, 37)
 		oSize = new nhn.api.map.Size(28, 37)
 		icon = new nhn.api.map.Icon("http://static.naver.com/maps2/icons/pin_spot2.png", oSize, oOffset)
-		for i in [0..restaurants.length]
+		for i in [0..restaurants.length-1]
+			title = restaurants[i].title
 			marker = new nhn.api.map.Marker(icon, {
 				point: coors[i]
 				zIndex: i
-				title: restaurants[i].title
+				title: title
 			})
 			map.addOverlay(marker)
 
+		infoWindow = new nhn.api.map.InfoWindow()
+		infoWindow.setVisible(false)
+		map.addOverlay(infoWindow)
+
 		label = new nhn.api.map.MarkerLabel()
-		label.setVisible(true, marker)
 		map.addOverlay(label)
+
+		map.attach('mouseenter', (event) ->
+			target = event.target
+			if target instanceof nhn.api.map.Marker
+				label.setVisible(true, target)
+		)
+
+		map.attach('mouseleave', (event) ->
+			target = event.target
+			if target instanceof nhn.api.map.Marker
+				label.setVisible(false)
+		)
