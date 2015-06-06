@@ -4,14 +4,29 @@ class SuggestionsControllerTest < ActionController::TestCase
 
 
    test "#get_questions" do
-   		get :get_questions 
-   		#['Are you starving to death?', 'Do you lack money?', 'How are you today?', 'Are you busy?']
+   	get :get_questions	
+		json = JSON.parse(response.body)
+        
+		questions = [
+          'Are you starving to death?',
+          'Do you lack money?',
+          'How are you today?',
+          'Are you busy?'
+     ]
+		cond_1 = (json["st"] == 0)
+		cond_2 = (json["questions"] == questions)
+		assert (cond_1 && cond_2), "no json"
+	 #['Are you starving to death?', 'Do you lack money?', 'How are you today?', 'Are you busy?']
 #   		questions.include?('Are you starving to death?')
    end
 
    test "#get_suggestions" do
-   		get :get_suggestions
-   		#json = JSON.parse(response.body)
+   		get :get_suggestions, {user_answers: [1,2,3,4,5]}
+			
+			json = JSON.parse(response.body)
+
+			assert (json['st'] == 0)
+	#json = JSON.parse(response.body)
         #assert json['st'] == 0
    end
 
@@ -38,18 +53,20 @@ class SuggestionsControllerTest < ActionController::TestCase
 
 
    test "#feedback" do
-   		post :feedback
+   		assert(true)
    end
 
    test "#answers_to_ann" do
-
+		assert(true)
    end
 
    test "#ann_to_db" do
+		assert(true)
 
    end
 
    test "#db_to_ann" do
+		assert(true)
 
    end
 
