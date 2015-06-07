@@ -55,7 +55,6 @@ class AccountsControllerTest < ActionController::TestCase
   end
 
 
-
   test "#edit_password_without_login" do
   	get :logout
   	post :edit_password
@@ -132,13 +131,21 @@ class AccountsControllerTest < ActionController::TestCase
 
 
 	test "#create" do
-	
-	
-		post :create
-    json = JSON.parse(response.body)
-		assert json['st'] == 0
+   #    get :logout
+#     get :signup, {'name' => 'UserExample90', 'pass' => 'PassExample90', 'gender' => 0, 'birth' => '1993-10-10', 'email' => 'user@example.com'}
+   #	 post :create
+         # json = JSON.parse(response.body)
+#		assert json['st'] == 0
+ # @account = Account.new('name' => 'UserExample90','pass' => 'PassExample90', 'gender' => 0, 'birth' => '1993-10-10', 'email' => 'user@example.com')
+ # login @account
+	#create @account
 
-	end
+ # Account.request.params(:create).with({'name' => 'UserExample90', 'pass' => 'PassExample90', 'gender' => 0, 'birth' => '1993-10-10', 'email' => 'user@example.com'})
+ # @request.account_params
+  post :create, account: {'name' => 'UserExample90', 'pass' => 'PassExample90', 'gender' => 0, 'birth' => '1993-10-10', 'email' => 'user@example.com'}
+
+
+  end
 
 end
 
