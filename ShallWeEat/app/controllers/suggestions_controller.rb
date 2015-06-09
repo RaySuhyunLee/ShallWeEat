@@ -45,17 +45,28 @@ class SuggestionsController < ApplicationController
 		session[:db_inputs] = db_inputs
 		food_results = search_food(db_inputs)
 
-		url = Addressable::URI.parse('http://openapi.naver.com/search?key=c1b406b32dbbbbeee5f2a36ddc14067f&query=불고기&target=local&start=1&display=10')
-		req = Net::HTTP::Get.new(url.to_s)
-		res = Net::HTTP.start(url.host, url.port) do |http|
+		items = []
+		food_results.each do |food|
+			url = Addressable::URI.parse('http://openapi.naver.com/search?key=60d05617c25e04228bc8220dea6b1b6f&query=낙성대' +
+																	 food[:name] + '&target=local&start=1&display=10')
+			puts(url)
+			req = Net::HTTP::Get.new(url.to_s)
+			res = Net::HTTP.start(url.host, url.port) do |http|
 			  http.request(req)
+			end
+			res.body.force_encoding('ISO-8859-1')
+			hash = Hash.from_xml(res.body)
+			if hash['error'] != nil
+				puts(res.body.inspect)
+			elsif hash['rss']['channel']['display'].to_i > 0
+				items.push(hash['rss']['channel']['item'])
+			end
 		end
-		res.body.force_encoding('ISO-8859-1')
 
 		render json: {
 			:st => 0,
 			:food_results => food_results,
-			:restaurants => (Hash.from_xml(res.body))['rss']['channel']['item']
+			:restaurants => items 
 		}
 	end
 

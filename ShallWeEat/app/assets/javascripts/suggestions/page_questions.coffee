@@ -66,8 +66,12 @@ $(".suggestions.questions").ready ->
 			success: (data) ->
 				if data.st == 0
 					food_results = data.food_results
+					restaurants = data.restaurants
 					show_food_info()
-					draw_map(data.restaurants)
+					if restaurants != null && restaurants.length > 0
+						draw_map(restaurants[0])
+					else
+						alert('no restaurants!')
 
 		$("#question_view").css('display', 'none')
 		$("#food_result_view").css('display', 'initial')
