@@ -7,6 +7,9 @@ $(".suggestions.questions").ready ->
 	cnt = 0
 	food_index = 0
 	food_results = []
+	restaurants = []
+	map = null
+	label = null
 
 	initialize = () ->
 		$("#button_back").click ->
@@ -98,20 +101,41 @@ $(".suggestions.questions").ready ->
 	dislike = () ->
 		food_index += 1
 		show_food_info()
+		draw_map(restaurants[food_index])
 
 	draw_map = (restaurants) ->
+		if map == null
+			map = new nhn.api.map.Map("map", {
+				minMaxLevel: [1, 14]
+				size: new nhn.api.map.Size(1000, 800)
+			})
+
+			label = new nhn.api.map.MarkerLabel()
+
+			map.attach('mouseenter', (event) ->
+				target = event.target
+				if target instanceof nhn.api.map.Marker
+					label.setVisible(true, target)
+			)
+
+			map.attach('mouseleave', (event) ->
+				target = event.target
+				if target instanceof nhn.api.map.Marker
+					label.setVisible(false)
+			)
+
+		else
+			map.clearOverlay()
+
 		coors = $.map(restaurants, (e, idx) ->
 				new nhn.api.map.TM128(e.mapx, e.mapy)
 		)
-		map = new nhn.api.map.Map("map", {
-			boundary: coors
-			minMaxLevel: [1, 14]
-			size: new nhn.api.map.Size(1000, 800)
-		})
-		
 		oOffset = new nhn.api.map.Size(14, 37)
 		oSize = new nhn.api.map.Size(28, 37)
 		icon = new nhn.api.map.Icon("http://static.naver.com/maps2/icons/pin_spot2.png", oSize, oOffset)
+
+		map.setBound(coors)
+
 		for i in [0..restaurants.length-1]
 			title = restaurants[i].title
 			marker = new nhn.api.map.Marker(icon, {
@@ -121,21 +145,8 @@ $(".suggestions.questions").ready ->
 			})
 			map.addOverlay(marker)
 
+		map.addOverlay(label)
+
 		infoWindow = new nhn.api.map.InfoWindow()
 		infoWindow.setVisible(false)
 		map.addOverlay(infoWindow)
-
-		label = new nhn.api.map.MarkerLabel()
-		map.addOverlay(label)
-
-		map.attach('mouseenter', (event) ->
-			target = event.target
-			if target instanceof nhn.api.map.Marker
-				label.setVisible(true, target)
-		)
-
-		map.attach('mouseleave', (event) ->
-			target = event.target
-			if target instanceof nhn.api.map.Marker
-				label.setVisible(false)
-		)
