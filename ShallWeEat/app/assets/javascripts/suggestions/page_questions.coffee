@@ -10,6 +10,7 @@ $(".suggestions.questions").ready ->
 	restaurants = []
 	map = null
 	label = null
+	infoWindow = null
 
 	initialize = () ->
 		$("#button_back").click ->
@@ -104,38 +105,26 @@ $(".suggestions.questions").ready ->
 		draw_map(restaurants[food_index])
 
 	draw_map = (restaurants) ->
+		# initialize map if first time
 		if map == null
-			map = new nhn.api.map.Map("map", {
-				minMaxLevel: [1, 14]
-				size: new nhn.api.map.Size(1000, 800)
-			})
-
-			label = new nhn.api.map.MarkerLabel()
-
-			map.attach('mouseenter', (event) ->
-				target = event.target
-				if target instanceof nhn.api.map.Marker
-					label.setVisible(true, target)
-			)
-
-			map.attach('mouseleave', (event) ->
-				target = event.target
-				if target instanceof nhn.api.map.Marker
-					label.setVisible(false)
-			)
-
+			init_map()
 		else
 			map.clearOverlay()
+			map.addOverlay(label)
+			map.addOverlay(infoWindow)
 
+		# get coordinates from the restaurant data
 		coors = $.map(restaurants, (e, idx) ->
 				new nhn.api.map.TM128(e.mapx, e.mapy)
 		)
 		oOffset = new nhn.api.map.Size(14, 37)
 		oSize = new nhn.api.map.Size(28, 37)
 		icon = new nhn.api.map.Icon("http://static.naver.com/maps2/icons/pin_spot2.png", oSize, oOffset)
-
+		
+		# set boundray so that all coors would displayed in the map
 		map.setBound(coors)
-
+		
+		# mark restaurants
 		for i in [0..restaurants.length-1]
 			title = restaurants[i].title
 			marker = new nhn.api.map.Marker(icon, {
@@ -145,8 +134,52 @@ $(".suggestions.questions").ready ->
 			})
 			map.addOverlay(marker)
 
-		map.addOverlay(label)
+
+	init_map = () ->
+		map = new nhn.api.map.Map("map", {
+			minMaxLevel: [1, 14]
+			size: new nhn.api.map.Size(1000, 800)
+		})
+
+		label = new nhn.api.map.MarkerLabel()
 
 		infoWindow = new nhn.api.map.InfoWindow()
 		infoWindow.setVisible(false)
+
+		map.addOverlay(label)
 		map.addOverlay(infoWindow)
+
+		map.attach('mouseenter', (event) ->
+			target = event.target
+			if target instanceof nhn.api.map.Marker
+				label.setVisible(true, target)
+		)
+
+		map.attach('mouseleave', (event) ->
+			target = event.target
+			if target instanceof nhn.api.map.Marker
+				label.setVisible(false)
+		)
+
+		map.attach('click', (event) ->
+			point = event.point
+			target = event.target
+			infoWindow.setVisible(false)
+
+			if target instanceof nhn.api.map.Marker
+				if event.clickCoveredMarker
+					return
+				
+				infoWindow.setContent(
+					'<div style="border: 1px solid #6c6c6c; background-color: white; width: 300px !important; height: auto;">'+
+						'<span style="display: inline-block;">'+
+							'<h4 style="font-weight: bold;">'+target.getTitle()+'</h4>'+
+							'<p>'+restaurants[food_index][target.getZIndex()].description+'</p>'+
+						'</span>'+
+					'</div>')
+				infoWindow.setPoint(target.getPoint())
+				infoWindow.setPosition(right: 15, top: 30)
+				infoWindow.setVisible(true)
+				infoWindow.autoPosition()
+		)
+
