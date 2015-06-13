@@ -70,10 +70,11 @@ $(".suggestions.questions").ready ->
 			success: (data) ->
 				if data.st == 0
 					food_results = data.food_results
+					# a set of sets of restaurants
 					restaurants = data.restaurants
 					show_food_info()
 					if restaurants != null && restaurants.length > 0
-						draw_map(restaurants[0])
+						draw_map(get_restaurants())
 					else
 						alert('no restaurants!')
 
@@ -102,7 +103,10 @@ $(".suggestions.questions").ready ->
 	dislike = () ->
 		food_index += 1
 		show_food_info()
-		draw_map(restaurants[food_index])
+		draw_map(get_restaurants())
+
+	get_restaurants = () ->
+		restaurants[food_index]
 
 	draw_map = (restaurants) ->
 		# initialize map if first time
@@ -174,7 +178,7 @@ $(".suggestions.questions").ready ->
 					'<div style="border: 1px solid #6c6c6c; background-color: white; width: 300px !important; height: auto;">'+
 						'<span style="display: inline-block;">'+
 							'<h4 style="font-weight: bold;">'+target.getTitle()+'</h4>'+
-							'<p>'+restaurants[food_index][target.getZIndex()].description+'</p>'+
+							'<p>'+get_restaurants()[target.getZIndex()].description+'</p>'+
 						'</span>'+
 					'</div>')
 				infoWindow.setPoint(target.getPoint())
