@@ -5,11 +5,9 @@ require 'addressable/uri'
 class SuggestionsController < ApplicationController
 
 	def index
-
 	end
 
-#	def show
-		
+#	def show	
 #	end
 
 	def get_questions
@@ -41,7 +39,7 @@ class SuggestionsController < ApplicationController
 		ann_inputs = answers_to_ann(user_answers)
 		db_inputs = ann_to_db(run_ann(ann_inputs))
 		
-		session[:user_naswers] = user_answers
+		session[:user_answers] = user_answers
 		session[:db_inputs] = db_inputs
 		food_results = search_food(db_inputs)
 

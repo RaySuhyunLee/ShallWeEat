@@ -79,12 +79,12 @@ class AccountsController < ApplicationController
 	end
 
 	def show
-		name = session[:name]
-		if name.nil?
-			redirect_to :accounts_index
-		else
-			@account = Account.find_by(name: name)
-		end
+	#	name = session[:name]
+	#	if name.nil?
+	#		redirect_to :accounts_index
+	#	else
+	#		@account = Account.find_by(name: name)
+	#	end
 	end
 
 	def logout

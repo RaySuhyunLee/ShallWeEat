@@ -62,5 +62,9 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'capybara'
   gem 'selenium-webdriver'
+
+  # Test Unit
+  gem 'test-unit'
+
 end
 
