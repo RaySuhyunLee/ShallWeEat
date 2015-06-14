@@ -94,5 +94,3 @@ Food.create(name: "samgyetang", spicy:10, sour:15, sweet:12, salty:64, bitter:12
 //galbitang
 Food.create(name: "galbitang", spicy:20, sour:2, sweet:6, salty:70, bitter:11, hot:95, cold:5, calories:466, time:80, price:43, image: "assets/galbitang.jpg")
 
-
-

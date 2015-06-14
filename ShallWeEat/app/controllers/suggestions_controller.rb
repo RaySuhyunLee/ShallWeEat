@@ -1,4 +1,6 @@
 require_relative './ann_helper'
+require 'net/http'
+require 'addressable/uri'
 
 class SuggestionsController < ApplicationController
 
@@ -37,13 +39,33 @@ class SuggestionsController < ApplicationController
 		ann_inputs = answers_to_ann(user_answers)
 		db_inputs = ann_to_db(run_ann(ann_inputs))
 		
-		session[:user_naswers] = user_answers
+		session[:user_answers] = user_answers
 		session[:db_inputs] = db_inputs
 		food_results = search_food(db_inputs)
-		#render plain: 'ann_inputs: ' + ann_inputs.inspect + '\n' +
-		#	'db_inputs: ' + db_inputs.inspect + '\n' +
-		#	'food_results: ' + food_results.inspect
-		render json: {:st => 0, :food_results => food_results}
+
+		items = []
+		food_results.each do |food|
+			url = Addressable::URI.parse('http://openapi.naver.com/search?key=60d05617c25e04228bc8220dea6b1b6f&query=낙성대' +
+																	 food[:name] + '&target=local&start=1&display=10')
+			puts(url)
+			req = Net::HTTP::Get.new(url.to_s)
+			res = Net::HTTP.start(url.host, url.port) do |http|
+			  http.request(req)
+			end
+			res.body.force_encoding('ISO-8859-1')
+			hash = Hash.from_xml(res.body)
+			if hash['error'] != nil
+				puts(res.body.inspect)
+			elsif hash['rss']['channel']['display'].to_i > 0
+				items.push(hash['rss']['channel']['item'])
+			end
+		end
+
+		render json: {
+			:st => 0,
+			:food_results => food_results,
+			:restaurants => items 
+		}
 	end
 
 	#def submit
