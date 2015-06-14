@@ -46,7 +46,7 @@ $(".suggestions.questions").ready ->
 	go_back = () ->
 		if cnt > 0
 			cnt -= 1
-			show_question()
+		show_question()
 
 	show_question_view = () ->
 		$("#question_view").css('display', 'initial')
@@ -142,7 +142,7 @@ $(".suggestions.questions").ready ->
 	init_map = () ->
 		map = new nhn.api.map.Map("map", {
 			minMaxLevel: [1, 14]
-			size: new nhn.api.map.Size(1000, 800)
+			size: new nhn.api.map.Size(800, 600)
 		})
 
 		label = new nhn.api.map.MarkerLabel()
@@ -177,14 +177,14 @@ $(".suggestions.questions").ready ->
 				restaurant = get_restaurants()[target.getZIndex()]
 				
 				infoWindow.setContent(
-					'<div style="border: 1px solid #6c6c6c; background-color: white; width: 300px !important; height: auto;">'+
-						'<span style="width: 300px; display: inline-block;">'+
+					'<div class="breadcrumb" style="border: 1px solid #707070; width: 300px !important; height: auto;">'+
+						'<span style="width: 260px; display: inline-block;">'+
 							'<h4 style="font-weight: bold;">'+target.getTitle()+'</h4>'+
-							'<div style="background-color: black; height: 2px;">'+
-							'<div>'+
+							'<div style="background-color: black; height: 2px;"></div>'+
+							'<div style="margin-top: 10px;">'+
 								'<p>'+restaurant.roadAddress+'</p>'+
-								'<p style="display: inline">'+restaurant.telephone+' | </p>'+
-								'<p style="display: inline">'+restaurant.category+'</p>'+
+								'<p style="display: inline;">'+restaurant.telephone+' | </p>'+
+								'<p style="display: inline;">'+restaurant.category+'</p>'+
 								'<p>'+restaurant.description+'</p>'+
 							'</div>'+
 						'</span>'+
