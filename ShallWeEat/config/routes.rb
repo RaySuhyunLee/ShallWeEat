@@ -1,25 +1,26 @@
 Rails.application.routes.draw do
 
-  root 'accounts#index'
+	root 'suggestions#questions'
+  #root 'accounts#index'
   #root 'accounts#new'
-  post 'login' => 'accounts#login'
-  post 'signup' => 'accounts#signup'
+  #post 'login' => 'accounts#login'
+  #post 'signup' => 'accounts#signup'
 
-  get 'accounts/index'
-  get 'accounts/signup'
-  get 'accounts/edit'
-  get 'accounts/logout'
-  post 'accounts/edit_profile'
-  post 'accounts/edit_password'
+  #get 'accounts/index'
+  #get 'accounts/signup'
+  #get 'accounts/edit'
+  #get 'accounts/logout'
+  #post 'accounts/edit_profile'
+  #post 'accounts/edit_password'
 
   resources :accounts
 
   get 'suggestions/get_questions' 
   get 'suggestions/get_suggestions'
+	post 'suggestions/feedback'
 
   get 'suggestions/questions'
-  get 'suggestions/food_result'
-	post 'suggestions/feedback'
+
   # resources :suggestions
 
 
