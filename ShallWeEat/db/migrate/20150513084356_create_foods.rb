@@ -13,7 +13,7 @@ class CreateFoods < ActiveRecord::Migration
       t.integer :time
       t.integer :price
       t.string :image
-
+			t.string :tag
 			t.timestamps null: false
     end
 
