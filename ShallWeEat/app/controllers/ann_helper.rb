@@ -1,7 +1,8 @@
 require 'ruby-fann'
+require 'json'
 
 def init_fann
-	fann = RubyFann::Standard.new(:num_inputs=>4, :hidden_neurons=>[5, 6, 7, 8], :num_outputs=>10)
+	fann = RubyFann::Shortcut.new(:num_inputs=>4, :num_outputs=>10)
 	save_fann(fann)
 end
 
@@ -24,9 +25,23 @@ def run_ann(inputs)
 	outputs = fann.run(inputs)
 end
 
-def teach(inputs, desired_outputs)
-	train = RubyFann::TrainData.new(:inputs=>inputs, :desired_outputs=>desired_outputs)
+def teach(input, desired_output)
+	inputs = [input]
+	desired_outputs = [desired_output]
+	#train_old = Train.all()
+	#train_old.each do |td|
+	#	parsed = JSON.parse(td.data)
+	#	inputs.push(parsed["input"])
+	#	desired_outputs.push(parsed["output"])
+	#end
+
+	puts(inputs.inspect)
+	puts(desired_outputs.inspect)
+
+	train_new = RubyFann::TrainData.new(:inputs=>inputs, :desired_outputs=>desired_outputs)
 	fann = load_fann
-	fann.train_on_data(train, 1000, 10, 0.1)
+	fann.train_on_data(train_new, 1000, 10, 0.01)
 	save_fann(fann)
+
+	#Train.create(data: {:input => input, :output => desired_output}.to_json)
 end

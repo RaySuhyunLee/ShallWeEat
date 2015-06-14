@@ -39,8 +39,6 @@ class SuggestionsController < ApplicationController
 		ann_inputs = answers_to_ann(user_answers)
 		db_inputs = ann_to_db(run_ann(ann_inputs))
 		
-		session[:user_answers] = user_answers
-		session[:db_inputs] = db_inputs
 		food_results = search_food(db_inputs)
 
 		items = []
@@ -123,7 +121,7 @@ class SuggestionsController < ApplicationController
 		
 		#first 3 foods in the rank
 		ret = []
-		3.times do |i|
+		10.times do |i|
 			ans = Food.find(@answer[i][1])
 			ret.push({name: ans.name, img: ans.image,
 								 tag: ans.tag, data: makeTuple(ans)})
@@ -132,10 +130,9 @@ class SuggestionsController < ApplicationController
 	end
 	
 	def feedback
-		is_good = params[:is_good]
+		is_good = params[:is_good].to_i
 		ann_inputs = answers_to_ann(params[:user_answers])
 		food_data = params[:food_data]
-
 		if is_good == 1
 			teach(ann_inputs, db_to_ann(food_data))
 			render :json => {st: 0}
@@ -155,7 +152,7 @@ class SuggestionsController < ApplicationController
 	def ann_to_db(original)
 		conveted = []
 		original.each do |a|
-			conveted.push((a*100).round)
+			conveted.push((a*500).round)
 		end
 		conveted
 	end
@@ -163,7 +160,7 @@ class SuggestionsController < ApplicationController
 	def db_to_ann(results)
 		conveted = []
 		results.each do |a|
-			conveted.push((a.to_f)/100)
+			conveted.push((a.to_f)/500)
 		end
 		conveted
 	end
