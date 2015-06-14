@@ -97,6 +97,7 @@ $(".suggestions.questions").ready ->
 				food_data: food_results[food_index].data
 			success: (data) ->
 				if data.st == 0
+					alert("Thank You! :D")
 					window.location.replace('/suggestions/questions')
 	
 	dislike = () ->
@@ -105,6 +106,7 @@ $(".suggestions.questions").ready ->
 			show_food_info()
 			draw_map(get_restaurants())
 		else
+			food_index -= 1
 			alert("먹을게 없다면 다이어트를 하는것도 좋은 방ㅂ... :(")
 
 	get_restaurants = () ->
