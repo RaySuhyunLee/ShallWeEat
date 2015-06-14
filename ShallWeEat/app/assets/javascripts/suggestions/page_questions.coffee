@@ -85,7 +85,6 @@ $(".suggestions.questions").ready ->
 	show_food_info = () ->
 		food = food_results[food_index]
 		$("#food_name").text(food.name)
-		#$("#food_desc").text = food.desc
 		$("#food_img").attr('src', food.img)
 
 	like = () ->
@@ -102,8 +101,11 @@ $(".suggestions.questions").ready ->
 	
 	dislike = () ->
 		food_index += 1
-		show_food_info()
-		draw_map(get_restaurants())
+		if (food_index < food_results.length)
+			show_food_info()
+			draw_map(get_restaurants())
+		else
+			alert("먹을게 없다면 다이어트를 하는것도 좋은 방ㅂ... :(")
 
 	get_restaurants = () ->
 		restaurants[food_index]

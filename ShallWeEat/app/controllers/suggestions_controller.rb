@@ -46,7 +46,7 @@ class SuggestionsController < ApplicationController
 		items = []
 		food_results.each do |food|
 			url = Addressable::URI.parse('http://openapi.naver.com/search?key=60d05617c25e04228bc8220dea6b1b6f&query=낙성대' +
-																	 food[:name] + '&target=local&start=1&display=10')
+																	 food[:tag] + '&target=local&start=1&display=10')
 			puts(url)
 			req = Net::HTTP::Get.new(url.to_s)
 			res = Net::HTTP.start(url.host, url.port) do |http|
@@ -122,21 +122,13 @@ class SuggestionsController < ApplicationController
 		puts @answer.inspect
 		
 		#first 3 foods in the rank
-		food_answer1 = Food.find(@answer[0][1]) #rank = 1
-		food_answer2 = Food.find(@answer[1][1]) #rank = 2
-		food_answer3 = Food.find(@answer[2][1]) #rank = 3
-	
-		name1 = food_answer1.name #name is food's name
-		name2 = food_answer2.name
-		name3 = food_answer3.name
-		image_src1 = food_answer1.image #image_src is string that stores food image route
-		image_src2 = food_answer2.image
-		image_src3 = food_answer3.image
-		
-			return [
-				{name: name1, img: image_src1, data: makeTuple(food_answer1)},
-				{name: name2, img: image_src2, data: makeTuple(food_answer2)},
-				{name: name3, img: image_src3, data: makeTuple(food_answer3)} ]
+		ret = []
+		3.times do |i|
+			ans = Food.find(@answer[i][1])
+			ret.push({name: ans.name, img: ans.image,
+								 tag: ans.tag, data: makeTuple(ans)})
+		end
+		return ret
 	end
 	
 	def feedback
