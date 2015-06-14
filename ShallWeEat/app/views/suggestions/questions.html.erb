@@ -1,5 +1,5 @@
 	<!-- Carousel -->
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+<div id="carousel-example-generic" class="carousel slide" style="position: absolute" data-ride="carousel">
 	<!-- Indicators -->
 	<ol class="carousel-indicators">
 		<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -11,16 +11,9 @@
 	<div class="carousel-inner">
 		<div class="item active">
 			<img src="/assets/bg_01.jpg" alt="" />
-			<div class="container" style= "position: fixed">
+			<div class="container">
 				<div class="carousel-caption">
-				<%= render "menu" %>
-
-				<%= render "question" %>
-
-				<%= render "food_result" %>
 	<!-- This is a typical Twitter Bootstrap Carousel -->
-					<h1>Bootstrap Carousel Fullscreen</h1>
-					<p class="lead">Just turns the Twitter Bootstrap Carousel in fullscreen mode, and scale to fit the screen resolution</p>
 				</div>
 			</div>
 		</div>
@@ -29,25 +22,17 @@
 			<img src="/assets/bg_02.jpg" alt="" />
 			<div class="container">
 				<div class="carousel-caption">
-				<%= render "menu" %>
-
-				<%= render "question" %>
-
-				<%= render "food_result" %>
 	<!-- This is a typical Twitter Bootstrap Carousel -->
-					<h1>Bootstrap Carousel Fullscreen</h1>
-					<p class="lead">Just turns the Twitter Bootstrap Carousel in fullscreen mode, and scale to fit the screen resolution</p>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<!-- Controls -->
-	<a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-		<span class="glyphicon glyphicon-chevron-left"></span>
-	</a>
-	<a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-		<span class="glyphicon glyphicon-chevron-right"></span>
-	</a>
 </div>
+
+<%= render "menu" %>
+
+<%= render "question" %>
+
+<%= render "food_result" %>
 
