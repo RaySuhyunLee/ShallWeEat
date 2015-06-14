@@ -173,12 +173,20 @@ $(".suggestions.questions").ready ->
 			if target instanceof nhn.api.map.Marker
 				if event.clickCoveredMarker
 					return
+
+				restaurant = get_restaurants()[target.getZIndex()]
 				
 				infoWindow.setContent(
 					'<div style="border: 1px solid #6c6c6c; background-color: white; width: 300px !important; height: auto;">'+
-						'<span style="display: inline-block;">'+
+						'<span style="width: 300px; display: inline-block;">'+
 							'<h4 style="font-weight: bold;">'+target.getTitle()+'</h4>'+
-							'<p>'+get_restaurants()[target.getZIndex()].description+'</p>'+
+							'<div style="background-color: black; height: 2px;">'+
+							'<div>'+
+								'<p>'+restaurant.roadAddress+'</p>'+
+								'<p style="display: inline">'+restaurant.telephone+' | </p>'+
+								'<p style="display: inline">'+restaurant.category+'</p>'+
+								'<p>'+restaurant.description+'</p>'+
+							'</div>'+
 						'</span>'+
 					'</div>')
 				infoWindow.setPoint(target.getPoint())
