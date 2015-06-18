@@ -40,7 +40,7 @@ def teach(input, desired_output)
 
 	train_new = RubyFann::TrainData.new(:inputs=>inputs, :desired_outputs=>desired_outputs)
 	fann = load_fann
-	fann.train_on_data(train_new, 200, 10, 0.01)
+	fann.train_on_data(train_new, 20, 10, 0.001)
 	save_fann(fann)
 
 	#Train.create(data: {:input => input, :output => desired_output}.to_json)
